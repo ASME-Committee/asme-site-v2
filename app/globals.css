@@ -1,0 +1,370 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /*
+   * The ASME palette.
+   *
+   *   #1F63EF  blue           the society: links, buttons, eyebrows, the hero
+   *   #275EE7  blue deep      the same blue where white sits on it
+   *   #5288F2  blue light     the second step in a sequence
+   *   #152641  dark blue      ink, and the ground of the closing panel
+   *   #E8F4FC  light blue     the tinted panel tier
+   *   #C3F84A  green          contribution, and only contribution
+   *   #4C6C04  green deep     the same hue where it has to be read as text
+   *   #EAEAED  grey           the page ground
+   *
+   * Three grounds, not one. White is the default panel, light blue marks the
+   * panels a reader should slow down on, and dark blue closes the page. Before
+   * this there was a single white tier and emphasis had to come from panel size
+   * alone, which gave twelve panels of near-identical weight.
+   *
+   * Green has exactly one job: it marks contribution. Blue is the society and
+   * the people seeking it; green is the people offering. Every appearance of
+   * green is an ask directed at someone who has already built something, and
+   * they run top to bottom: the hero's second action, the third door, the offer
+   * column on Contact, step 04 of the join form, and the contribution block in
+   * the closing panel. It replaces the pink that carried this meaning before.
+   *
+   * #C3F84A is 1.25:1 on white, so it is never text and never a thin line on a
+   * light ground. It is a bar, a fill, or an underline on blue or dark blue,
+   * where it runs 4.1:1 and 12.2:1. Where contribution has to be said in words
+   * on a light ground, #4C6C04 is the same hue at 6.1:1.
+   *
+   * Ink is #152641 rather than a neutral near-black. At 15.2:1 on white it is
+   * no less legible, and it stops the page reading as blue accents dropped onto
+   * a greyscale document.
+   */
+  :root {
+    --ground: 234 234 237;        /* #EAEAED */
+    --surface: 255 255 255;
+    --surface-subtle: 246 246 248;
+    --surface-elevated: 255 255 255;
+    --surface-inverse: 21 38 65;
+
+    --fg: 21 38 65;               /* #152641 */
+    --fg-muted: 74 90 120;        /* #4A5A78 — 6.9:1 on white */
+    --fg-subtle: 129 141 166;     /* #818DA6 — labels and eyebrow-scale text */
+    --fg-inverse: 255 255 255;
+
+    --border: 228 229 234;
+    --border-strong: 205 208 216;
+
+    --accent: 31 99 239;          /* #1F63EF — sampled from the master logo
+                                     artwork. Was #2267F2, which was eyeballed
+                                     from a PNG and sat a shade off the brand
+                                     blue the mark is actually drawn in. */
+    --accent-deep: 39 94 231;     /* #275EE7 — white on this is 5.5:1 */
+    --accent-light: 82 136 242;   /* #5288F2 */
+    --ink: 21 38 65;              /* #152641 — the closing panel's ground */
+    --tint: 232 244 252;          /* #E8F4FC — the tinted panel tier */
+
+    --give: 195 248 74;           /* #C3F84A — bars, fills, underlines. Never
+                                     text, and never a hairline on white. */
+    --give-deep: 76 108 4;        /* #4C6C04 — the same hue at 6.1:1 on white,
+                                     for the few places contribution has to be
+                                     said in words on a light ground. */
+    --accent-fg: 255 255 255;
+
+    --panel-radius: 1.75rem;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    color-scheme: light;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply text-fg font-sans;
+    background-color: rgb(var(--ground));
+    font-feature-settings: "ss01", "cv01", "cv11";
+  }
+
+  ::selection {
+    background-color: rgb(var(--accent) / 0.16);
+    color: inherit;
+  }
+}
+
+@layer components {
+  /*
+   * The structural unit of the page. Every section is a white panel on the
+   * grey ground, and the gap between panels is the only section separator.
+   */
+  .panel {
+    @apply rounded-[var(--panel-radius)] bg-surface;
+    padding: 2.5rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .panel {
+      padding: 3.5rem 3.5rem;
+    }
+  }
+
+  /*
+   * Three panel scales, because twelve panels at one padding read as a list
+   * rather than a page. Size carries the emphasis so the type does not have to.
+   *
+   *   panel-lg  the beats that have to land: the premise, the doors, the proof
+   *   panel     everything doing normal work
+   *   panel-sm  utility: the partner wall, the article list
+   */
+  .panel-lg {
+    padding: 3.25rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .panel-lg {
+      padding: 5rem 3.5rem;
+    }
+  }
+
+  .panel-sm {
+    padding: 2rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .panel-sm {
+      padding: 2.5rem 3.5rem;
+    }
+  }
+
+  /* The middle ground. Light blue, for the panels a reader should slow down on:
+     the proof block, the principal partner, the three doors. A wash at 6% of
+     the light blue was doing this before and was too faint to register as a
+     tier at all. */
+  .panel-tint {
+    background-color: rgb(var(--tint));
+  }
+
+  /* The contribution thread. A green left bar marks any ask aimed at someone
+     who has already built something, so the same device appears at the top,
+     middle and bottom of the page and always means the same thing. */
+  .contribute-mark {
+    border-left: 4px solid rgb(var(--give));
+    padding-left: 1.25rem;
+  }
+
+  /* The same thread, where the ask is a block of its own rather than a note
+     inside a panel. Dark blue ground, with the green bar sitting inside it on
+     .contribute-mark rather than forming its edge — a coloured edge on a
+     rounded block reads as a second border around the block, not as the rule
+     the rest of the site uses. The closing panel has always nested the two this
+     way; this makes every other appearance match it. */
+  .contribute-block {
+    border-radius: var(--panel-radius);
+    background-color: rgb(var(--ink));
+    color: rgb(var(--accent-fg));
+    padding: 1.5rem;
+  }
+
+  .panel-accent {
+    @apply rounded-[var(--panel-radius)];
+    background-color: rgb(var(--accent-deep));
+    color: rgb(var(--accent-fg));
+    padding: 3rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .panel-accent {
+      padding: 4rem 3.5rem;
+    }
+  }
+
+  /* The closing panel. Dark blue rather than a second blue one: the hero and
+     the join block were the same colour at the top and bottom of the page,
+     which read as the page repeating itself rather than resolving. */
+  .panel-ink {
+    @apply rounded-[var(--panel-radius)];
+    background-color: rgb(var(--ink));
+    color: rgb(var(--accent-fg));
+    padding: 3rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .panel-ink {
+      padding: 4rem 3.5rem;
+    }
+  }
+
+  /* Vertical rhythm between panels. One value, used everywhere. */
+  .panel-stack {
+    @apply flex flex-col gap-4 md:gap-6;
+  }
+
+  /*
+   * Headline. Light by default with a bold second half, which is the whole
+   * typographic idea: the sentence starts quietly and lands on the phrase that
+   * matters. Use <strong> for the part that should carry weight.
+   */
+  .h-display {
+    @apply text-fg;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .h-display strong {
+    font-weight: 700;
+  }
+
+  /*
+   * Heading leading, deliberately written at element+class specificity.
+   *
+   * Tailwind's arbitrary font-size utilities (text-[2.75rem] and friends) each
+   * carry their own `line-height: 1`, and utilities are emitted after
+   * components, so a plain `.h-display { line-height }` lost every time. Every
+   * heading using one was therefore set solid, and the descenders of the first
+   * line ran into the caps of the second ("A community, not / a mailing list.").
+   *
+   * 0,1,1 beats a utility's 0,1,0, so this holds wherever a heading appears and
+   * whatever size utility sits on it. Change the number here and every heading
+   * on the site moves together.
+   */
+  h1.h-display,
+  h2.h-display,
+  h3.h-display,
+  p.h-display,
+  div.h-display {
+    line-height: 1.14;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center text-xs font-semibold uppercase;
+    letter-spacing: 0.14em;
+    color: rgb(var(--accent));
+  }
+
+  .hairline {
+    @apply h-px w-full bg-border;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium;
+    background-color: rgb(var(--accent) / 0.08);
+    color: rgb(var(--accent));
+  }
+
+  /* Icon holder: a soft square of the one colour. */
+  .glyph-chip {
+    @apply inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl;
+    background-color: rgb(var(--accent) / 0.09);
+    color: rgb(var(--accent));
+  }
+
+  /* Cards inside a panel are separated by rules, not borders and shadows. */
+  .card {
+    @apply relative bg-surface;
+  }
+  .card-hover {
+    @apply transition-colors;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+  .section-tight {
+    @apply py-12 md:py-16;
+  }
+
+  /*
+   * Interior pages. PageShell wraps its children in `.page-stack`, and every
+   * direct section child becomes a panel automatically. Without this, adopting
+   * the home page's language would mean editing nine page files and every
+   * section component they use; with it, an interior page is written as plain
+   * sections and lands in the design.
+   */
+  .page-stack > section {
+    @apply rounded-[var(--panel-radius)] bg-surface;
+    padding: 2.5rem 1.5rem;
+    border: 0;
+  }
+  @media (min-width: 768px) {
+    .page-stack > section {
+      padding: 3.5rem;
+    }
+  }
+  .page-stack > section.panel-accent {
+    background-color: rgb(var(--accent-deep));
+    color: rgb(var(--accent-fg));
+  }
+  .page-stack > section.panel-tint {
+    background-color: rgb(var(--tint));
+  }
+  .page-stack > section.panel-ink {
+    background-color: rgb(var(--ink));
+    color: rgb(var(--accent-fg));
+  }
+  .page-stack > section.panel-lg {
+    padding: 3.25rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .page-stack > section.panel-lg { padding: 5rem 3.5rem; }
+  }
+  .page-stack > section.panel-flush {
+    padding: 0;
+    overflow: hidden;
+  }
+  .page-stack > section > .container-x {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /*
+   * A section dropped inside a panel gives up its own spacing, background and
+   * gutters: the panel supplies all three. This is why the home page can be
+   * rebuilt as panels without editing the section components, which are shared
+   * with the inner pages and still need their own padding there.
+   */
+  .panel > section,
+  .panel-accent > section,
+  .panel-ink > section {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: transparent;
+  }
+
+  /* Interior pages inherited a lot of bordered, rounded, tinted boxes from the
+     previous design. Inside a panel the panel is already the frame, so those
+     become plain surfaces rather than boxes within boxes. */
+  .page-stack .card {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .panel .container-x,
+  .panel-accent .container-x,
+  .panel-ink .container-x {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@layer utilities {
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 70%, transparent);
+  }
+
+  .balance {
+    text-wrap: balance;
+  }
+
+  .pretty {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-shimmer,
+  .animate-glow,
+  .animate-fade-up {
+    animation: none !important;
+  }
+}

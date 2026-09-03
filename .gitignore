@@ -1,0 +1,25 @@
+node_modules
+.next
+out
+dist
+.env
+.env.local
+.env*.local
+.DS_Store
+*.log
+.vercel
+next-env.d.ts
+
+# build artifact
+tsconfig.tsbuildinfo
+
+# local editor/dev config (machine-specific paths)
+.claude/
+
+# Preview build package
+asme-preview.zip
+
+# Held back from the public build. The signed Joint Statement carries six
+# deans' signatures; the site links it only when the file is in public/.
+# To publish it: move it into public/ and push.
+private/

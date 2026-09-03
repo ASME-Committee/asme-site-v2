@@ -1,0 +1,9 @@
+# This is a draft of the ASME site, shared for review only.
+#
+# It must not be indexed: a public preview URL carrying the real ASME copy
+# would compete with asme.org.au in search results and could be found by
+# people looking for the society itself.
+#
+# DELETE THIS FILE before the site goes live at its real address.
+User-agent: *
+Disallow: /

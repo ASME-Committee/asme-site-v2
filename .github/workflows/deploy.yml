@@ -1,0 +1,66 @@
+# Build the static export and publish it to GitHub Pages.
+#
+# This runs on GitHub's machines, which have network access, so the Linux SWC
+# binary Next needs is fetched here rather than on anyone's laptop. Push to
+# main and the site updates on its own about two minutes later. No local build,
+# nothing to drag anywhere.
+#
+# One-time setup in the repo: Settings -> Pages -> Source: GitHub Actions.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race. A push mid-build queues rather than cancels, so
+# whatever is on main is what ends up live.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build the static export
+        # A project site is served from /<repo-name>, so every asset and link
+        # needs that prefix. Derived from the repo name rather than hardcoded,
+        # so renaming or forking the repo cannot silently break every path.
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+        run: npm run build
+
+      - name: Stop Pages mangling the output
+        # Without this, Pages runs the files through Jekyll, which drops any
+        # directory beginning with an underscore. Next puts its entire JS and
+        # CSS payload in _next.
+        run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
