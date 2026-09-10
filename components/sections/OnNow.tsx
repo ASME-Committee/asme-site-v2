@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { announcementsByDate, events, onNow } from "@/lib/content";
+import { events, onNow } from "@/lib/content";
 
 /**
  * The home page's live block: what is actually happening, in one place.
  *
- * Absorbs the old standalone "Latest from ASME" band, so the newest
- * announcement appears here rather than in position two, where a first-time
- * visitor met a headline assuming knowledge they did not have yet.
+ * Only things a reader can turn up to. Clinician+ used to be pinned above the
+ * events, but a program that starts in November with no way to apply yet fails
+ * the block's own test: this asks "what can I attend", and the answer for it was
+ * nothing. It is an announcement until applications open, at which point it
+ * belongs back here with a link to apply.
  *
  * Events filter by date rather than by the `upcoming` flag alone, so one that
  * passes drops off the home page without anyone editing content.
@@ -24,10 +26,6 @@ export function OnNow() {
     .sort((a, b) => a.start.localeCompare(b.start))
     .slice(0, 3);
 
-  // SPARC is pinned at the top of this block, so skip any announcement that
-  // just points back at it, or the same program renders twice.
-  const latest = announcementsByDate.find((a) => a.href !== onNow.sparc.href);
-
   return (
     <section id="on-now">
       <Container>
@@ -37,23 +35,6 @@ export function OnNow() {
         </h2>
 
         <ul className="mt-10 border-t border-border">
-          {/* SPARC first: it is the live program. */}
-          <li className="border-b border-border">
-            <Link href={onNow.sparc.href} className="group block py-7">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                <h3 className="text-lg font-semibold tracking-tight text-fg transition-colors group-hover:text-[rgb(var(--accent))]">
-                  {onNow.sparc.title}
-                </h3>
-                <span className="text-xs uppercase tracking-[0.12em] text-fg-subtle">
-                  {onNow.sparc.meta}
-                </span>
-              </div>
-              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-fg-muted pretty">
-                {onNow.sparc.body}
-              </p>
-            </Link>
-          </li>
-
           {upcoming.map((e) => (
             <li key={e.title} className="border-b border-border py-7">
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
@@ -81,24 +62,6 @@ export function OnNow() {
               )}
             </li>
           ))}
-
-          {latest && (
-            <li className="border-b border-border">
-              <Link href={latest.href} className="group block py-7">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                  <h3 className="text-lg font-semibold tracking-tight text-fg transition-colors group-hover:text-[rgb(var(--accent))]">
-                    {latest.title}
-                  </h3>
-                  <span className="text-xs uppercase tracking-[0.12em] text-fg-subtle">
-                    Latest &middot; {latest.kind}
-                  </span>
-                </div>
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-fg-muted pretty">
-                  {latest.blurb}
-                </p>
-              </Link>
-            </li>
-          )}
         </ul>
 
         <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

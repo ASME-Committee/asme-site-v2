@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import Image from "next/image";
-import { Check, FileText, ArrowUpRight } from "lucide-react";
+import { Check, FileText, ArrowUpRight, ArrowRight } from "lucide-react";
 import { asset } from "@/lib/asset";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/sections/PageHeader";
+import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { JoinCTA } from "@/components/sections/JoinCTA";
@@ -34,7 +35,7 @@ export default function ChangingTheSystemPage() {
         title={<>Changing the system <strong>from within.</strong></>}
         lead="Inspiring individual clinicians is half of what we do. The other half is here: changing the institutions that decide whether innovation, entrepreneurship and enterprise become a normal part of a clinical career. The universities that train clinicians, the hospitals they train in, and the colleges that certify them."
         cta={{ label: "Join ASME", href: site.joinPath }}
-        secondaryCta={{ label: "Work with us on this", href: "/contact" }}
+        secondaryCta={{ label: "Work with us on this", href: "/contact/?reason=partnership#form" }}
       />
 
       {/* The three institutions */}
@@ -62,9 +63,10 @@ export default function ChangingTheSystemPage() {
                       {p.proofHref ? (
                         <a
                           href={p.proofHref}
-                          className="underline decoration-border underline-offset-4 transition-colors hover:text-brand-blue hover:decoration-brand-blue"
+                          className="group inline font-semibold text-brand-blue underline decoration-brand-blue/40 decoration-2 underline-offset-4 transition-colors hover:decoration-brand-blue"
                         >
                           {p.proof}
+                          <ArrowRight className="ml-1 inline h-4 w-4 shrink-0 -translate-y-px transition-transform group-hover:translate-x-0.5" />
                         </a>
                       ) : (
                         p.proof
@@ -81,7 +83,7 @@ export default function ChangingTheSystemPage() {
       {/* The colleges ask, and its proof. The universities pillar has the Joint
           Statement below; this is the equivalent for the colleges, and it is
           the first formal agreement of its kind, so it earns a panel. */}
-      <section id="racma-mou">
+      <section id="racma-mou" className="scroll-mt-24">
         <Container>
           <Reveal className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
             <div className="md:col-span-5">
@@ -182,17 +184,28 @@ export default function ChangingTheSystemPage() {
                     single action that publishes it, and taking it out is the
                     single action that withdraws it. Nothing else on this panel
                     changes either way. */}
+                {/* The statement itself is the proof this whole panel is making,
+                    so it gets a button rather than a text link at the foot of a
+                    long section. Secondary, not primary: it is a document, and
+                    the site reserves the solid pill for actions that start a
+                    conversation. Same treatment as the AUSCEP Impact Report. */}
                 {statementIsPublished && (
-                  <a
-                    href={asset(jointStatement.statementHref)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[rgb(var(--accent))] transition-colors hover:text-[rgb(var(--accent-deep))]"
-                  >
-                    <FileText className="h-4 w-4" />
-                    Read the full statement
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
+                  <div className="mt-8 flex flex-col items-start gap-3">
+                    <ButtonLink
+                      href={asset(jointStatement.statementHref)}
+                      size="md"
+                      variant="secondary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FileText className="h-4 w-4" />
+                      Read the full statement
+                      <ArrowUpRight className="h-4 w-4" />
+                    </ButtonLink>
+                    <p className="text-xs text-fg-subtle">
+                      PDF, opens in a new tab. Signed by the six deans above.
+                    </p>
+                  </div>
                 )}
               </div>
             </div>

@@ -92,7 +92,10 @@ export const hero = {
  *        ecosystem collaborators). Recount both if those lists change.
  */
 export const societyMetrics = [
-  { value: "2,000+", label: "Clinicians" },
+  // Exact rather than rounded: a counted figure reads as a fact, a rounded one
+  // reads as marketing. Needs refreshing as it grows.
+  { value: "1,343", label: "Clinician members" },
+  { value: "3,500+", label: "LinkedIn followers" },
   { value: "6", label: "Medical schools signed" },
   { value: "15", label: "Partners & collaborators" },
 ] as const;
@@ -147,28 +150,28 @@ export const goals = [
   "Enhance clinician satisfaction by providing more career variety and options.",
 ];
 
-/** SPARC Clinician Innovation Program. Content taken from the Parkville LHSN
+/** Clinician+ Innovation Program. Content taken from the Parkville LHSN
  *  flyer. The program is sold to health services, so the page carries both the
  *  organisational case and a door for individual clinicians. Dates are not yet
  *  set: keep `status` honest until they are. */
 export const sparc = {
   eyebrow: "Coming soon",
-  title: "SPARC",
-  subtitle: "Clinician Innovation Program.",
+  title: "Clinician+",
+  subtitle: "Innovation Program.",
   hook: "That idea you have been carrying between shifts deserves more than a conversation in the corridor.",
   description:
-    "Born from the ARC Global Innovation Centre and delivered across centres around the world, SPARC is a practical, clinician-focused program that helps clinicians turn the problems they see every day into solutions. ASME brings it to Australia.",
-  status: "Dates to be confirmed",
+    "Clinician+ is a practical, clinician-focused program shaped by what works overseas, helping clinicians turn the problems they see every day into solutions.",
+  status: "Commencing November 2026",
   foundationPartners:
-    "Launching in Melbourne's Parkville precinct with Peter MacCallum Cancer Centre and Royal Melbourne Hospital.",
+    "Launching November 2026 across 3 Parkville health services.",
   details: [
     {
-      title: "Three-month program",
-      body: "A focused program designed to fit around clinical commitments.",
+      title: "Flexible 3 to 6 months",
+      body: "Length is set with your organisation and designed to fit around clinical commitments.",
       glyph: "clock",
     },
     {
-      title: "8 workshops",
+      title: "6 to 8 workshops",
       // Deliberately precise: facilitators are healthcare-experienced, and
       // clinician innovators join most sessions rather than teaching them.
       body: "Virtual and in person, covering the full innovation journey from problem definition to implementation. Facilitators come from healthcare, and clinician innovators who have built solutions join most sessions.",
@@ -181,7 +184,7 @@ export const sparc = {
     },
     {
       title: "Introductions & networking",
-      body: "Connect with local and global SPARC alumni, healthcare innovators and the ARC Innovation network.",
+      body: "Connect with healthcare innovators, mentors and others building in the same space.",
       glyph: "network",
     },
     {
@@ -195,7 +198,7 @@ export const sparc = {
       glyph: "award",
     },
   ],
-  /** The institutional case. SPARC is bought by health services, not individuals. */
+  /** The institutional case. Clinician+ is bought by health services, not individuals. */
   benefits: [
     "Frontline-driven innovation leads to meaningful operational and clinical improvements.",
     "Position your organisation as forward-thinking and clinician-empowered.",
@@ -230,6 +233,10 @@ export type Announcement = {
   title: string;
   blurb: string;
   href: string;
+  /** Optional. The lead announcement on the home page runs it alongside the
+   *  headline; the compact rows below ignore it. An announcement without one
+   *  still leads, it just does it on type alone. */
+  image?: { src: string; alt: string };
 };
 
 export const announcements: Announcement[] = [
@@ -239,27 +246,31 @@ export const announcements: Announcement[] = [
     title: "RACMA joins ASME as an institutional partner",
     blurb:
       "The Royal Australasian College of Medical Administrators joins ASME, extending the partner network to the medical colleges.",
-    href: "/partners",
-  },
-  // Bionics Institute leads the feed. Both items still carry the same
-  // placeholder date, and Array.prototype.sort is stable, so source order is
-  // what puts this first today. Once the real dates land, date order takes
-  // over and this ordering comment stops mattering.
-  {
-    date: "2026-08-20", // TODO: real date
-    kind: "Partnership",
-    title: "Bionics Institute joins ASME as a partner",
-    blurb:
-      "One of Australia's leading medical research institutes joins the network supporting clinician-led innovation.",
-    href: "/partners",
+    // The MoU panel, not the partner logo wall: it carries the signing photo and
+    // explains what the agreement covers, which is what a reader clicking this
+    // headline is after.
+    href: "/changing-the-system#racma-mou",
+    image: {
+      src: "/photos/racma-mou-signing.jpg",
+      alt: "Dr Brandon Carp and Professor Erwin Loh seated at a table signing the Memorandum of Understanding, in front of a RACMA banner.",
+    },
   },
   {
     date: "2026-09-02",
     kind: "Program",
-    title: "SPARC comes to Melbourne's Parkville precinct",
+    title: "Clinician+ launches across three Parkville health services",
     blurb:
-      "ASME will deliver the SPARC Clinician Innovation Program with Peter MacCallum Cancer Centre and Royal Melbourne Hospital.",
+      "ASME will deliver the Clinician+ Innovation Program with Royal Melbourne Hospital, St Vincent's Hospital and Peter MacCallum Cancer Centre, targeted to start in November 2026. More information to come.",
     href: "/programs#sparc",
+    // The programme's own mark rather than a photograph. A stock hospital shot
+    // beside a headline naming three real health services implies one of them,
+    // and a cohort photo implies participants for a programme that has not run
+    // yet. A launch announcement showing the thing being launched is the honest
+    // version, and it swaps out the day there is a real photograph.
+    image: {
+      src: "/brand/clinicianplus-launch-card.png",
+      alt: "The ASME Clinician+ Innovation Program wordmark.",
+    },
   },
 ];
 
@@ -282,7 +293,7 @@ export const whatWeDo = [
   {
     title: "Programs",
     blurb:
-      "SPARC brings innovation training inside your hospital, built around clinical work rather than competing with it. AUSCEP took four cohorts from idea to venture.",
+      "Clinician+ brings innovation training inside your hospital, built around clinical work rather than competing with it. AUSCEP took four cohorts from idea to venture.",
     glyph: "compass",
     href: "/programs",
   },
@@ -336,7 +347,7 @@ export const doors: Door[] = [
   {
     id: "noticing",
     title: "I keep noticing things that should work better.",
-    body: "You have not started anything. You may not think the word entrepreneur applies to you. That is the most common way in, and everyone here was there once.",
+    body: "You have not started anything. You may not think the word innovator applies to you. That is the most common way in, and everyone here was there once.",
     cta: "Meet the community",
     href: "/membership",
   },
@@ -374,17 +385,17 @@ export const doorsIntro = {
  *
  * It absorbs the standalone "Latest from ASME" band. The newest announcement now
  * leads this section instead of occupying position two, where a first-time
- * visitor met a headline that assumed they already knew what SPARC was.
+ * visitor met a headline that assumed they already knew what Clinician+ was.
  */
 export const onNow = {
   eyebrow: "On now",
   heading: "Where to find us next.",
-  /** SPARC is pinned above the event list: it is the live program, and it is
+  /** Clinician+ is pinned above the event list: it is the live program, and it is
    *  what most people arriving from the doors will want first. */
   sparc: {
-    title: "SPARC Clinician Innovation Program",
-    meta: "Melbourne · dates to be confirmed",
-    body: "Launching in the Parkville precinct with Peter MacCallum Cancer Centre and Royal Melbourne Hospital. Three months, eight workshops, built to fit around clinical commitments.",
+    title: "Clinician+ Innovation Program",
+    meta: "Melbourne · commencing November 2026",
+    body: "Launching in the Parkville precinct with Peter MacCallum Cancer Centre, St Vincent's Hospital and Royal Melbourne Hospital. Three to six months, six to eight workshops, built to fit around clinical commitments.",
     href: "/programs#sparc",
   },
   footer:
@@ -732,12 +743,10 @@ export const events: Eventish[] = [
     title: "AI in Healthcare",
     type: "Workshop",
     host: "ASME",
-    // Month not settled (Oct or Nov). `start` is a sort key only; `date` is
-    // what renders, so keep it vague until the date is locked in.
-    date: "Late 2026",
-    start: "2026-10-01",
+    date: "20 November 2026",
+    start: "2026-11-20",
     blurb:
-      "An ASME workshop on AI in healthcare, run for members of RACMA (the Royal Australasian College of Medical Administrators). Exact date to be confirmed.",
+      "An ASME workshop on AI in healthcare, run for members of RACMA (the Royal Australasian College of Medical Administrators).",
     upcoming: true,
   },
   // Add more events below. host: "ASME" for events ASME runs, "Ecosystem" for
@@ -782,6 +791,83 @@ export type PartnerGroup = {
   subtiers: PartnerSubtier[];
 };
 
+/**
+ * Why an organisation would partner, as opposed to who already does.
+ *
+ * The logo walls below answer "who", which is social proof but not an argument.
+ * A prospect forwarded this page needs the argument, so it sits above them:
+ * benefit, then proof, then the ask.
+ *
+ * Split by tier because the two audiences buy different things. Industry buys
+ * reach and association. Institutions buy an outcome inside their own walls,
+ * so their list is drawn from the Clinician+ case that already persuades health
+ * services, rather than written fresh.
+ *
+ * Every claim here has to be one ASME can stand behind in a meeting. Figures
+ * live in `societyMetrics` and `outcomes` and are not restated here, so there is
+ * one place to correct them.
+ */
+export type PartnerBenefitGroup = {
+  tier: string;
+  lede: string;
+  benefits: { title: string; body: string }[];
+};
+
+export const partnerBenefits: PartnerBenefitGroup[] = [
+  {
+    tier: "Industry Partners",
+    lede: "What your organisation gets back.",
+    benefits: [
+      {
+        title: "Brand exposure",
+        body: "Your organisation carried across the ASME website, at our events, through our programs, and in the newsletter.",
+      },
+      {
+        title: "A contribution to transforming healthcare",
+        body: "Supporting ASME signals your organisation's commitment to advancing healthcare innovation, and makes a real impact in line with your corporate social responsibility.",
+      },
+      {
+        title: "Access to a growing network of clinician innovators",
+        body: "Clinicians who are building companies, devices, services and new models of care, and the people backing them.",
+      },
+      {
+        title: "A seat at the table with ecosystem leaders",
+        body: "Alongside the health services, universities, medical colleges and research institutes shaping where clinician innovation goes next.",
+      },
+      {
+        title: "A voice inside the programs",
+        body: "Our programs are built on mentors and facilitators who have done it themselves. Industry partners contribute that expertise directly to the clinicians coming through.",
+      },
+    ],
+  },
+  {
+    tier: "Institutional Partners",
+    lede: "What changes inside your organisation.",
+    benefits: [
+      {
+        title: "Innovation driven from your own frontline",
+        body: "Your clinicians turn the problems they see every day into operational and clinical improvements, focused on the challenges you choose.",
+      },
+      {
+        title: "Clinicians who stay",
+        body: "Variety, creativity and purpose beyond day-to-day work, which is one of the levers a health service has against burnout.",
+      },
+      {
+        title: "A reputation for backing your people",
+        body: "Position your organisation as forward-thinking and clinician-empowered, and signal that innovation is supported across it.",
+      },
+      {
+        title: "Education your clinicians can count",
+        body: "CPD accreditation for our innovation education is under review, and is intended to form part of your clinicians' CPD requirements.",
+      },
+      {
+        title: "Company you keep",
+        body: "Named alongside the medical schools, colleges and health services already committed to clinician innovation.",
+      },
+    ],
+  },
+];
+
 export const partnerGroups: PartnerGroup[] = [
   {
     tier: "Industry Partners",
@@ -815,7 +901,7 @@ export const partnerGroups: PartnerGroup[] = [
         orgs: [
           { name: "The University of Melbourne", logo: "/partners/uni-melbourne.png", href: "https://www.unimelb.edu.au" },
           { name: "Peter MacCallum Cancer Centre", logo: "/partners/peter-mac.png", href: "https://www.petermac.org", logoClass: "max-h-[44px] max-w-[175px]" },
-          { name: "Royal Australasian College of Medical Administrators", logo: "/partners/racma.svg", href: "https://racma.edu.au", logoClass: "max-h-[60px] max-w-[150px]" },
+          { name: "Royal Australasian College of Medical Administrators", logo: "/partners/racma.svg", href: "https://racma.edu.au", logoClass: "max-h-[64px] max-w-[185px]" },
           { name: "Bionics Institute", logo: "/partners/bionics-institute.svg", href: "https://www.bionicsinstitute.org", logoClass: "max-h-[54px] max-w-[150px]" },
         ],
       },
@@ -897,10 +983,24 @@ export const supportingPartners: Partner[] = (
   .map(toPartner)
   .filter((p): p is Partner => p !== null);
 
-/** Institutions and ecosystem collaborators, at one even weight. */
-export const ecosystemPartners: Partner[] = partnerWall.filter(
-  (p) => !supportingPartners.some((sp) => sp.name === p.name),
-);
+/** The institutional tier: hospitals, health services, universities, colleges
+ *  and research institutes.
+ *
+ *  Derived from `partnerGroups`, the same tiered data the Partners page renders,
+ *  rather than by subtracting the industry partners from the flat wall. That
+ *  subtraction is what merged institutions and ecosystem collaborators into one
+ *  undifferentiated row: a university and a peer network arrived at the same
+ *  weight, and the home page could not say which was which.
+ *
+ *  Ecosystem collaborators are deliberately not on the home page. They are a map
+ *  of the sector rather than a claim about ASME's standing, and the full picture
+ *  lives on /partners. */
+export const institutionalPartners: Partner[] = (
+  partnerGroups.find((g) => g.tier === "Institutional Partners")?.subtiers ?? []
+)
+  .flatMap((st) => st.orgs)
+  .map(toPartner)
+  .filter((p): p is Partner => p !== null);
 
 /** Endorsements from senior figures in Australian medicine.
  *  `badge` marks a formal standing relationship with ASME (patron, ambassador),
@@ -997,9 +1097,9 @@ export const memberBenefits = [
   },
   {
     title: "Programs built around clinical life",
-    // Names SPARC as the live program and AUSCEP as track record: AUSCEP is
+    // Names Clinician+ as the live program and AUSCEP as track record: AUSCEP is
     // complete, so it should not read as something you can still join.
-    body: "Practical training with mentors who have done it themselves, designed to fit around your roster rather than compete with it. SPARC runs inside hospitals; AUSCEP delivered four cohorts.",
+    body: "Practical training with mentors who have done it themselves, designed to fit around your roster rather than compete with it. Clinician+ runs inside hospitals; AUSCEP delivered four cohorts.",
     glyph: "compass",
   },
   {
@@ -1044,8 +1144,8 @@ export const people: Person[] = [
   // Team
   { name: "Matt Hallam", title: "Chief Executive Officer", group: "Team", initials: "MH", photo: "/team/matt-hallam.png", linkedin: "https://www.linkedin.com/in/matt-hallam-88572131/" },
   { name: "Masha Pelipas", title: "Program Delivery", group: "Team", initials: "MP", photo: "/team/masha-pelipas.png", linkedin: "https://www.linkedin.com/in/mariapelipas/" },
-  { name: "Romy Blecher", title: "Marketing and Operations", group: "Team", initials: "RB", photo: "/team/romy-blecher.jpg" },
-  { name: "Jack Edwards", title: "Community Engagement", group: "Team", initials: "JE", photo: "/team/jack-edwards.jpg" },
+  { name: "Romy Blecher", title: "Marketing and Operations", group: "Team", initials: "RB", photo: "/team/romy-blecher.jpg", linkedin: "https://www.linkedin.com/in/romy-blecher-68310171/" },
+  { name: "Jack Edwards", title: "Community Engagement", group: "Team", initials: "JE", photo: "/team/jack-edwards.jpg", linkedin: "https://www.linkedin.com/in/jack-edwards-21023a250/" },
   { name: "Dr Brandon Carp", title: "President & Founder", group: "Team", initials: "BC", photo: "/team/brandon-carp.png", linkedin: "https://www.linkedin.com/in/dr-brandon-carp-5819b0a/", externalRole: "Co-founder, Unified Healthcare Group (UHG)" },
   { name: "Dr Anna Barker", title: "Company Secretary", group: "Team", initials: "AB", photo: "/team/anna-barker.jpg", linkedin: "https://www.linkedin.com/in/anna-barker-64649a60/", externalRole: "EGM, Hammond Innovations" },
   { name: "Dr Lior Rauchberger", title: "Treasurer", group: "Team", initials: "LR", photo: "/team/lior-rauchberger.png", linkedin: "https://www.linkedin.com/in/lior-rauchberger-2401b64/", externalRole: "CEO, myDNA. Founder, Vivi Education" },
@@ -1097,8 +1197,8 @@ export const advocacyPillars: AdvocacyPillar[] = [
     title: "Clinicians solving the problems they see",
     // Deliberately not "entrepreneurship": the hospital ask is that clinicians
     // are backed to fix what they encounter, not that they start companies.
-    body: "We encourage hospitals to back their clinicians to turn the problems they see every day into solutions. That happens through the SPARC Clinician Innovation Program and driving a new culture of innovation.",
-    proof: "Coming to Melbourne's Parkville precinct with Peter MacCallum Cancer Centre and Royal Melbourne Hospital.",
+    body: "We encourage hospitals to back their clinicians to turn the problems they see every day into solutions. That happens through the Clinician+ Innovation Program and driving a new culture of innovation.",
+    proof: "Commencing November 2026 across Melbourne's Parkville precinct with Peter MacCallum Cancer Centre, St Vincent's Hospital and Royal Melbourne Hospital.",
     proofHref: "/programs#sparc",
   },
   {
@@ -1107,8 +1207,8 @@ export const advocacyPillars: AdvocacyPillar[] = [
     // The ask is accreditation of the education and programs, not of a
     // clinician's innovation work itself.
     body: "We encourage the colleges, and similar clinician organisations, to support innovation among their members, and to accredit innovation-related education and programs toward CPD.",
-    proof: "RACMA joined as an institutional partner, with an AI in Healthcare workshop for members later in 2026.",
-    proofHref: "/partners",
+    proof: "RACMA joined as an institutional partner.",
+    proofHref: "#racma-mou",
   },
 ];
 
@@ -1161,10 +1261,13 @@ export const photos = {
     caption:
       "Dr Brandon Carp, ASME President, and Professor Erwin Loh, RACMA President, signing the Memorandum of Understanding.",
   },
-  sparcLaunch: {
-    src: "/photos/sparc-launch-sheba.jpg",
-    alt: "The SPARC cohort and faculty standing together on stage at the launch event, in front of a screen reading Thank you for joining us.",
-    caption: "The SPARC launch at ARC Innovation, Sheba Medical Centre.",
+  ipWorkshop: {
+    src: "/photos/ip-workshop.jpg",
+    // Alt describes only what is visible in the frame. The event is not named
+    // here because it has not been confirmed; the slide and handouts carry FPA
+    // branding and the title "IP 101+".
+    alt: "Clinicians and faculty seated around a large boardroom table with laptops during an intellectual property workshop, facing a presenter standing beside a screen reading IP 101+.",
+    caption: "An intellectual property workshop for clinician founders.",
   },
   auscepCohort: {
     src: "/photos/auscep-cohort.jpg",
@@ -1206,9 +1309,9 @@ export type ProgramItem = {
 
 export const programsList: ProgramItem[] = [
   {
-    name: "SPARC",
-    tagline: "Clinician Innovation Program",
-    body: "A 3-month, clinician-focused program born from the ARC Global Innovation Centre and delivered worldwide, now brought to Australia by ASME. Eight workshops, mentorship, and a focus tailored to your health service. Launching with Peter MacCallum Cancer Centre and Royal Melbourne Hospital.",
+    name: "Clinician+",
+    tagline: "Innovation Program",
+    body: "A 3 to 6 month program for clinicians, shaped by what works overseas. Workshops, mentorship, introductions. Designed for clinicians, by clinicians.",
     status: "Coming soon",
     href: "#sparc",
   },
@@ -1282,13 +1385,26 @@ export const webinars: Webinar[] = [
 ];
 
 /** Featured videos for the Insights hub. */
-export type Video = { title: string; youtubeId: string; start?: number; blurb: string };
+/** `speaker` and `speakerRole` name the clinician telling the story, so a talk
+ *  carries the same "who is this" line as an interview on the Resources page. */
+export type Video = {
+  title: string;
+  youtubeId: string;
+  start?: number;
+  blurb: string;
+  speaker: string;
+  speakerRole?: string;
+};
 export const videos: Video[] = [
   {
     title: "More than one way to be a doctor",
     youtubeId: "BpSRQdUilKE",
-    // TODO: set `start` to the second the speech proper begins, to skip the personal intro.
-    start: 0,
+    speaker: "Dr Brandon Carp",
+    // Matches the externalRole on his team entry, so one person is not
+    // described two ways in two places.
+    speakerRole: "Co-founder, Unified Healthcare Group (UHG)",
+    // 3:00. YouTube's `start` is in seconds, so 3 x 60.
+    start: 180,
     blurb:
       "University of Melbourne graduation address, Faculty of Medicine, Dentistry and Health Sciences, 2023.",
   },

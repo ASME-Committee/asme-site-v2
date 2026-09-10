@@ -15,7 +15,7 @@ export default function JoinPage() {
       <PageHeader
         eyebrow="Membership"
         title={<>Join <strong>ASME.</strong></>}
-        lead="ASME is Australia's clinician-led community for medical entrepreneurship and innovation. Membership is free and connects you with peers, mentors, events, and hands-on programmes like AUSCEP and SPARC. Joining takes two minutes."
+        lead="ASME is Australia's clinician-led community for medical entrepreneurship, innovation and enterprise. Membership is free and will connect you with peers, mentors, events, and hands-on programs like AUSCEP. Joining should take less than 2 minutes."
       />
       <JoinForm />
     </PageShell>

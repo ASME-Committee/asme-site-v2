@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { asset } from "@/lib/asset";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { asset } from "@/lib/asset";
 import { sparc } from "@/lib/content";
 
 /** The three facts a clinician or a health service needs before clicking. Full
@@ -16,7 +15,7 @@ const facts = [
 ];
 
 /**
- * Home page teaser for SPARC, the live program. Sits before the AUSCEP block so
+ * Home page teaser for Clinician+, the live program. Sits before the AUSCEP block so
  * the page reads forwards: here is what is next, and here is the track record
  * behind it.
  */
@@ -31,16 +30,17 @@ export function SparcTeaser() {
               <span className="chip">{sparc.status}</span>
             </div>
 
-            <Image
-              src={asset("/sparc-logo.png")}
-              alt="SPARC"
-              width={329}
-              height={96}
-              className="mt-5 h-14 w-auto md:h-16"
+            {/* Compact lockup here, so "Innovation Program" stays as a real
+                heading: text is indexed and read aloud, artwork is neither. */}
+            <img
+              src={asset("/brand/clinicianplus-horizontal-compact-navy.svg")}
+              alt="ASME Clinician+"
+              width={7444}
+              height={750}
+              className="mt-5 w-[280px] max-w-full md:w-[330px]"
             />
 
             <h2 className="h-display mt-5 text-3xl md:text-[2.75rem]">
-              <span className="sr-only">SPARC </span>
               {sparc.subtitle}
             </h2>
 
@@ -58,7 +58,7 @@ export function SparcTeaser() {
               href="/programs#sparc"
               className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue transition-colors hover:text-brand-blue-deep"
             >
-              Explore the SPARC program
+              Explore the Clinician+ program
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </Reveal>

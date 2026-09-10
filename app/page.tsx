@@ -8,6 +8,7 @@ import { RoomBand } from "@/components/sections/RoomBand";
 import { WhatWeDo } from "@/components/sections/WhatWeDo";
 import { ThreeDoors } from "@/components/sections/ThreeDoors";
 import { OnNow } from "@/components/sections/OnNow";
+import { Announcements } from "@/components/sections/Announcements";
 import { TrackRecord } from "@/components/sections/TrackRecord";
 import { MemberSpotlights } from "@/components/sections/MemberSpotlights";
 import { SystemsChange } from "@/components/sections/SystemsChange";
@@ -61,6 +62,14 @@ export default function HomePage() {
           <RoomBand />
           <div className="panel">
             <WhatWeDo />
+          </div>
+          {/* Announcements first: what has happened is the evidence the society
+              is moving, and it carries a photograph. On now follows with what a
+              reader can still turn up to. panel-lg, not a tint: TrackRecord
+              below is tinted, and two tinted panels in a row lose the boundary
+              between them. */}
+          <div className="panel panel-lg">
+            <Announcements />
           </div>
           <div className="panel">
             <OnNow />

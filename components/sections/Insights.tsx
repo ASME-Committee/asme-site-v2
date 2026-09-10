@@ -1,10 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArticleCover } from "@/components/ui/ArticleCover";
 import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { getRecentArticles, formatDate } from "@/lib/blog";
+import { getRecentArticles, getArticlesExcept, formatDate } from "@/lib/blog";
+import type { ArticleCategory } from "@/lib/blog";
 
 export function Insights({
   eyebrow = "Playbooks",
@@ -14,6 +15,7 @@ export function Insights({
     </>
   ),
   compact = false,
+  exclude,
 }: {
   eyebrow?: string;
   /** A node rather than a string so the caller can mark which half of the
@@ -22,8 +24,12 @@ export function Insights({
   /** Home-page teaser: titles only, no cover art. Keeps the landing page short
    *  and keeps stock photography off it. */
   compact?: boolean;
+  /** Omit a category, so a strand shown elsewhere on the page (Clinician+
+   *  Stories) does not appear twice. */
+  exclude?: ArticleCategory;
 }) {
-  const posts = getRecentArticles(compact ? 3 : 4);
+  const limit = compact ? 3 : 4;
+  const posts = exclude ? getArticlesExcept(exclude, limit) : getRecentArticles(limit);
 
   return (
     <section id="insights" className="section relative">
@@ -35,7 +41,7 @@ export function Insights({
               {heading}
             </h2>
             <p className="mt-4 text-base text-fg-muted pretty">
-              New articles arrive most days. Interviews, essays, and practical guides on clinical entrepreneurship.
+              Practical guides, essays and field notes on building something in healthcare. Short, specific, and written for people doing it around a clinical job.
             </p>
           </div>
           <Link
@@ -75,13 +81,7 @@ export function Insights({
                 className="card card-hover group flex h-full flex-col overflow-hidden"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={post.cover}
-                    alt={post.coverAlt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
+                  <ArticleCover category={post.category} slug={post.slug} />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <div className="flex items-center gap-2 text-xs">

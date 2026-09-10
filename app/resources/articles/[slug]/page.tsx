@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArticleCover } from "@/components/ui/ArticleCover";
 import { ArrowLeft, ArrowUpRight, Clock } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { Container } from "@/components/ui/Container";
@@ -80,14 +80,7 @@ export default async function ArticlePage({ params }: Props) {
 
         <section className="panel-flush">
           <div className="relative aspect-[16/9]">
-            <Image
-              src={article.cover}
-              alt={article.coverAlt}
-              fill
-              sizes="100vw"
-              className="object-cover"
-              priority
-            />
+            <ArticleCover category={article.category} slug={article.slug} size="hero" />
           </div>
         </section>
 
@@ -186,13 +179,7 @@ export default async function ArticlePage({ params }: Props) {
                     className="card card-hover group flex h-full flex-col overflow-hidden"
                   >
                     <div className="relative aspect-[16/10] overflow-hidden">
-                      <Image
-                        src={post.cover}
-                        alt={post.coverAlt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                      />
+                      <ArticleCover category={post.category} slug={post.slug} />
                     </div>
                     <div className="flex flex-1 flex-col p-6">
                       <div className="flex items-center gap-2 text-xs">

@@ -14,7 +14,7 @@ import { programsList, site } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Programs",
   description:
-    "The SPARC Clinician Innovation Program, launching across Melbourne's Parkville precinct, and AUSCEP, our completed 12-month flagship that trained more than 150 clinicians.",
+    "The Clinician+ Innovation Program, commencing November 2026 across three Melbourne Parkville precinct health services, and AUSCEP, our completed 12-month flagship that trained more than 150 clinicians.",
 };
 
 export default function ProgramsPage() {
@@ -24,7 +24,7 @@ export default function ProgramsPage() {
         eyebrow="Programs"
         title={<>Turning clinical <strong>insight into impact.</strong></>}
         lead="Practical, cohort-based programs that give clinicians the skills, mentorship, and network to turn frontline ideas into real healthcare innovation."
-        cta={{ label: "Bring SPARC to your organisation", href: "/contact#form" }}
+        cta={{ label: "Bring Clinician+ to your organisation", href: "/contact?reason=sparc#form" }}
         secondaryCta={{ label: "Join ASME", href: site.joinPath }}
       />
 

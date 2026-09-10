@@ -41,6 +41,10 @@ export type Article = {
   sections: ArticleSection[];
   /** Public references that ground the claims in the article. */
   sources?: ArticleSource[];
+  /** The clinician the story is about, which is not the same as `author`, who
+   *  wrote it. Used by the Innovator stories section so every story names its
+   *  person the same way. */
+  innovator?: { name: string; role?: string };
 };
 
 const UNSPLASH = (id: string, w = 1600) =>
@@ -290,6 +294,7 @@ export const articles: Article[] = [
     dek: "Dr Thomas Kelly left a vascular surgical training pathway in 2021 to build Heidi. In October 2025 the company closed a US$65M Series B at a US$465M valuation, led by Point72. What clinician founders can take from a public raise.",
     category: "Interview",
     author: "ASME Editorial",
+    innovator: { name: "Dr Thomas Kelly", role: "Co-founder, Heidi Health" },
     date: "2026-04-08",
     readTime: "10 min",
     cover: UNSPLASH("photo-1556761175-5973dc0f32e7"),
@@ -365,7 +370,7 @@ export const articles: Article[] = [
   {
     slug: "clinician-founders-pricing-too-low",
     title: "Why clinician-led healthtech is leaving money on the table",
-    dek: "Healthcare buyers expect a 15 to 25 percent volume discount at scale. 78 percent of SaaS companies now price on value rather than cost. Clinician-led companies that have not moved with the market are losing one full pricing cycle a year.",
+    dek: "Healthcare buyers expect a 15 to 25 percent volume discount at scale. 78 percent of SaaS companies now price on value rather than cost.",
     category: "Field note",
     author: "ASME Editorial",
     date: "2026-03-28",
@@ -597,6 +602,21 @@ export function getArticleBySlug(slug: string): Article | undefined {
 export function getRecentArticles(limit?: number): Article[] {
   const sorted = [...articles].sort((a, b) => (a.date < b.date ? 1 : -1));
   return typeof limit === "number" ? sorted.slice(0, limit) : sorted;
+}
+
+/** Articles in one category, newest first. Clinician+ Stories are the
+ *  "Interview" category, so the Resources page can show them as their own
+ *  strand rather than leaving them mixed into the general feed. */
+export function getArticlesByCategory(category: ArticleCategory, limit?: number): Article[] {
+  const found = getRecentArticles().filter((a) => a.category === category);
+  return typeof limit === "number" ? found.slice(0, limit) : found;
+}
+
+/** Everything except one category. The counterpart to the above, so an article
+ *  cannot appear in both the Stories strand and the general article list. */
+export function getArticlesExcept(category: ArticleCategory, limit?: number): Article[] {
+  const found = getRecentArticles().filter((a) => a.category !== category);
+  return typeof limit === "number" ? found.slice(0, limit) : found;
 }
 
 export function formatDate(iso: string): string {

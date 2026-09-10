@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -11,7 +11,7 @@ import { site } from "@/lib/content";
  *
  * Everything that reaches ASME through the website used to arrive as "Join
  * ASME", which is wrong for four of the six people who want to make contact: a
- * hospital asking about SPARC, an organisation asking about partnership, an
+ * hospital asking about Clinician+, an organisation asking about partnership, an
  * event organiser, and a journalist are not members and should not be pushed
  * through a membership form to be heard.
  *
@@ -45,7 +45,7 @@ const ASK_REASONS = [
   },
   {
     value: "sparc",
-    label: "Bringing SPARC to my organisation",
+    label: "Bringing an event or program to my organisation",
     help: "Innovation training delivered inside your hospital or university, built around clinical work.",
   },
   {
@@ -152,6 +152,20 @@ export function ContactForm() {
   /** Only shown once they have tried to submit, so the form does not scold
    *  someone who has not reached the question yet. */
   const [attempted, setAttempted] = useState(false);
+
+  /* A link can name the reason it was clicked for, e.g. /contact?reason=partnership.
+     Read from window rather than useSearchParams: this site is a static export,
+     so the query string only exists in the browser, and reading it here avoids
+     a Suspense boundary around a form that has nothing to suspend on.
+
+     Only values that exist in REASONS are accepted, so a hand-edited URL cannot
+     put the form into a state the options do not offer. */
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get("reason");
+    if (!wanted) return;
+    const match = REASONS.find((r) => r.value === wanted);
+    if (match) setReasons([match.value as Reason]);
+  }, []);
 
   const has = (v: Reason) => reasons.includes(v);
   function toggle(v: Reason) {

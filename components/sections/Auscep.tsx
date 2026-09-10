@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, FileText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
@@ -47,14 +47,21 @@ export function Auscep() {
             <p className="mt-6 text-xs leading-relaxed text-fg-subtle">{auscep.report.note}</p>
 
             <div className="mt-4 flex flex-col items-start gap-4">
+              {/* Secondary, not primary: this is evidence, not a conversion.
+                  The solid blue pill is reserved for actions that start a
+                  conversation, so a page keeps one obvious next step. Document
+                  icons match the Joint Statement link on Driving Change, and
+                  the up-right arrow says it opens away from the site. */}
               <ButtonLink
                 href={auscep.report.href}
                 size="md"
+                variant="secondary"
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <FileText className="h-4 w-4" />
                 {auscep.report.label}
-                <ArrowRight className="h-4 w-4" />
+                <ArrowUpRight className="h-4 w-4" />
               </ButtonLink>
               <Link
                 href="/membership#directory"

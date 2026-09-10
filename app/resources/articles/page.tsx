@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArticleCover } from "@/components/ui/ArticleCover";
 import { ArrowUpRight } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/sections/PageHeader";
@@ -32,7 +33,7 @@ export default function ArticlesPage() {
       <PageHeader
         eyebrow="Resources"
         title={<>Playbooks for <strong>clinicians who build.</strong></>}
-        lead="Field notes, interviews, and essays on clinical entrepreneurship. Each one is short, specific, and written by someone who has actually shipped the thing."
+        lead="Playbooks, essays and field notes on building something in healthcare. Each one short, specific, and grounded in what the pathway actually looks like in Australia."
         secondaryCta={{ label: "Back to the library", href: "/resources" }}
       />
 
@@ -96,13 +97,7 @@ export default function ArticlesPage() {
                   className="group flex h-full flex-col"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-                    <Image
-                      src={post.cover}
-                      alt={post.coverAlt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                    />
+                    <ArticleCover category={post.category} slug={post.slug} />
                   </div>
                   <div className="flex flex-1 flex-col pt-5">
                     <div className="flex items-center gap-2 text-xs">

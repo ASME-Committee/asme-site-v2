@@ -26,7 +26,7 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 /**
- * SPARC is sold to health services, not to individuals, so this section leads
+ * Clinician+ is sold to health services, not to individuals, so this section leads
  * with what the program is, then makes the organisational case, then offers
  * both doors: an institutional enquiry and free ASME membership for clinicians
  * who want to be told when dates land.
@@ -40,19 +40,17 @@ export function Sparc() {
             <span className="eyebrow">{sparc.eyebrow}</span>
             <span className="chip">{sparc.status}</span>
           </div>
-          <div className="mt-5">
-            <Image
-              src={asset("/sparc-logo.png")}
-              alt="SPARC"
-              width={329}
-              height={96}
-              className="h-14 w-auto md:h-16"
-            />
-          </div>
-          <h2 className="h-display mt-5 text-3xl md:text-[2.75rem]">
-            <span className="sr-only">SPARC </span>
-            {sparc.subtitle}
-          </h2>
+          {/* The full lockup already reads "Innovation Program", so the heading
+              that used to sit under it would say the words twice. A plain img,
+              not next/image: SVG needs dangerouslyAllowSVG to pass through it,
+              and this file is ours. */}
+          <img
+            src={asset("/brand/clinicianplus-horizontal-navy.svg")}
+            alt="ASME Clinician+ Innovation Program"
+            width={7444}
+            height={1266}
+            className="mt-5 w-[300px] max-w-full md:w-[380px]"
+          />
           <p className="mt-6 text-xl leading-relaxed text-fg balance md:text-2xl">
             {sparc.hook}
           </p>
@@ -86,13 +84,14 @@ export function Sparc() {
           })}
         </div>
 
-        {/* SPARC is described as "born from the ARC Global Innovation Centre and
-            delivered across centres around the world". This is that. */}
+        {/* What one of these workshops actually looks like: clinicians around a
+            table, working. Clinician+ has not run yet, so this is not a photo of
+            it, and the alt text names no event it cannot support. */}
         <Reveal className="mt-16">
           <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
             <Image
-              src={asset(photos.sparcLaunch.src)}
-              alt={photos.sparcLaunch.alt}
+              src={asset(photos.ipWorkshop.src)}
+              alt={photos.ipWorkshop.alt}
               fill
               sizes="(max-width: 1024px) 100vw, 900px"
               className="object-cover"
@@ -105,20 +104,28 @@ export function Sparc() {
           <Reveal className="lg:col-span-5">
             <span className="eyebrow">For health services</span>
             <h3 className="h-display mt-3 text-3xl tracking-tight balance md:text-4xl">
-              Why bring SPARC to your organisation.
+              Why bring Clinician+ to your organisation.
             </h3>
             <p className="mt-5 text-base leading-relaxed text-fg-muted pretty">
-              SPARC runs inside your organisation, focused on the challenges you
+              Clinician+ runs inside your organisation, focused on the challenges you
               choose, for a cohort of up to 20 of your clinicians.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink
-                href={`mailto:${site.email}?subject=SPARC%20enquiry`}
-                size="md"
-              >
-                Enquire about SPARC
+            {/* Same pattern as the Partners page: the form is the primary path
+                because it captures the organisation and cohort size needed to
+                scope a delivery, and email sits under it for the reader whose
+                machine has no mail client configured, or who simply prefers to
+                write one. */}
+            <div className="mt-8 flex flex-col items-start gap-3">
+              <ButtonLink href="/contact?reason=sparc#form" size="md">
+                Enquire about Clinician+
                 <ArrowRight className="h-4 w-4" />
               </ButtonLink>
+              <a
+                href={`mailto:${site.email}?subject=Clinician%2B%20enquiry`}
+                className="text-sm font-medium text-[rgb(var(--accent))] underline-offset-4 hover:underline"
+              >
+                Or email {site.email}
+              </a>
             </div>
           </Reveal>
 

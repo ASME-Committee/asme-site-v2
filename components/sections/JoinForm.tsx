@@ -145,7 +145,7 @@ const HOW_FOUND = [
   "Other social media",
   "Email from ASME",
   "An ASME event",
-  "An ASME program (AUSCEP or SPARC)",
+  "An ASME program (AUSCEP or Clinician+)",
   "My hospital, university or college",
   "Web search",
 ];

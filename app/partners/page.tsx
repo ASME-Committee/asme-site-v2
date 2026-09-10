@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { JoinCTA } from "@/components/sections/JoinCTA";
 import { PageHeader } from "@/components/sections/PageHeader";
+import { PartnerBenefits } from "@/components/sections/PartnerBenefits";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
@@ -115,10 +116,12 @@ export default function PartnersPage() {
       <PageHeader
         eyebrow="Partners"
         title={<>Working together to <strong>transform healthcare.</strong></>}
-        lead="ASME brings together industry, institutions, and ecosystem organisations with a shared commitment to improving healthcare through innovation, entrepreneurship, and enterprise. Here is who we partner with — and how your organisation can join them."
-        cta={{ label: "Talk to us about partnering", href: "/contact#form" }}
+        lead="ASME brings together industry, institutions, and ecosystem organisations with a shared commitment to improving healthcare through innovation, entrepreneurship, and enterprise. Here is what partnering gives your organisation, who we already partner with, and how to join them."
+        cta={{ label: "Talk to us about partnering", href: "/contact?reason=partnership#form" }}
         secondaryCta={{ label: `Email ${site.email}`, href: partnerMailto }}
       />
+
+      <PartnerBenefits />
 
       {/* Tiered partner groups.
           Each tier reads top to bottom rather than left to right: the tier name
@@ -218,7 +221,7 @@ export default function PartnersPage() {
               </p>
             </div>
             <div className="mt-8 flex shrink-0 flex-col items-start gap-3 md:mt-0 md:items-end">
-              <ButtonLink href="/contact#form" size="lg">
+              <ButtonLink href="/contact?reason=partnership#form" size="lg">
                 Talk to us about partnering
                 <ArrowRight className="h-4 w-4" />
               </ButtonLink>

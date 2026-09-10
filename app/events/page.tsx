@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { asset } from "@/lib/asset";
@@ -24,7 +24,7 @@ export default function EventsPage() {
         eyebrow="Events"
         title={<>Where clinician <strong>innovation happens.</strong></>}
         lead="Conferences, pitch nights, roundtables, workshops, and webinars for clinicians building the future of healthcare. Browse what's coming up, and revisit what you missed."
-        cta={{ label: "Submit an event", href: "/contact#form" }}
+        cta={{ label: "Submit an event", href: "/contact?reason=submit-event#form" }}
         secondaryCta={{ label: "Join ASME", href: site.joinPath }}
       />
 
@@ -59,9 +59,12 @@ export default function EventsPage() {
               consider it for the calendar. New events go out on LinkedIn first.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-              <ButtonLink href="/contact#form" size="md">
-                <Mail className="h-4 w-4" />
+              {/* Identical to the header call to action: same variant, size,
+                  icon and label, so the page makes one ask twice rather than
+                  two asks that look different. */}
+              <ButtonLink href="/contact?reason=submit-event#form" variant="primary" size="lg">
                 Submit an event
+                <ArrowRight className="h-4 w-4" />
               </ButtonLink>
             </div>
           </Reveal>

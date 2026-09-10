@@ -10,13 +10,13 @@ import { site } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with ASME about membership, bringing SPARC to your hospital or university, partnering with us, an event, or media. ACNC registered charity, ABN 41 664 194 307.",
+    "Get in touch with ASME about membership, bringing Clinician+ to your hospital or university, partnering with us, an event, or media. ACNC registered charity, ABN 41 664 194 307.",
 };
 
 /**
  * Until now the only way to reach ASME from the website was the membership
  * form. That works for one of the six people who arrive wanting to make
- * contact, and quietly loses the other five: the hospital asking about SPARC,
+ * contact, and quietly loses the other five: the hospital asking about Clinician+,
  * the organisation asking about partnership, the event organiser, the
  * journalist, and the person who just has a question.
  *
@@ -31,7 +31,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title={<>Talk to <strong>a person.</strong></>}
-        lead="ASME is run by clinicians around their clinical work. Messages are read by someone who can answer them, usually within three business days."
+        lead="ASME is a not-for-profit. Messages are read by someone who can answer them, usually within 5 business days."
         secondaryCta={{ label: `Email ${site.email}`, href: `mailto:${site.email}` }}
       />
 
