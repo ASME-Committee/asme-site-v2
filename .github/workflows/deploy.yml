@@ -38,11 +38,12 @@ jobs:
       - run: npm ci
 
       - name: Build the static export
-        # A project site is served from /<repo-name>, so every asset and link
-        # needs that prefix. Derived from the repo name rather than hardcoded,
-        # so renaming or forking the repo cannot silently break every path.
+        # Served from the root of the custom domain (asme.org.au, set via
+        # public/CNAME), so no path prefix. If this repo is ever served from
+        # a github.io/<repo> URL again, set NEXT_PUBLIC_BASE_PATH back to
+        # /${{ github.event.repository.name }}.
         env:
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: ""
         run: npm run build
 
       - name: Stop Pages mangling the output
