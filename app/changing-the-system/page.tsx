@@ -192,7 +192,11 @@ export default function ChangingTheSystemPage() {
                 {statementIsPublished && (
                   <div className="mt-8 flex flex-col items-start gap-3">
                     <ButtonLink
-                      href={asset(jointStatement.statementHref)}
+                      // ButtonLink routes internal paths through next/link,
+                      // which already prepends the base path. Wrapping in
+                      // asset() too double-prefixed it (…/asme-site-v2/asme-site-v2/…)
+                      // and 404'd on the project site.
+                      href={jointStatement.statementHref}
                       size="md"
                       variant="secondary"
                       target="_blank"
