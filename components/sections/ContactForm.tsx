@@ -5,6 +5,7 @@ import { Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { site } from "@/lib/content";
+import { submitContact } from "@/lib/forms";
 
 /**
  * The contact form is a router, not a catch-all.
@@ -152,6 +153,8 @@ export function ContactForm() {
   /** Only shown once they have tried to submit, so the form does not scold
    *  someone who has not reached the question yet. */
   const [attempted, setAttempted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   /* A link can name the reason it was clicked for, e.g. /contact?reason=partnership.
      Read from window rather than useSearchParams: this site is a static export,
@@ -178,13 +181,26 @@ export function ContactForm() {
   // Help text for everything they have picked, in the order the options appear.
   const chosen = REASONS.filter((r) => reasons.includes(r.value) && r.help);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setAttempted(true);
     if (reasons.length === 0) return;
-    // TODO: POST to Airtable / backend, routed by `reasons`.
-    setDone(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setError(null);
+    setSubmitting(true);
+    try {
+      const fd = new FormData(e.currentTarget);
+      const data: Record<string, unknown> = Object.fromEntries(fd.entries());
+      data.reasons = reasons;
+      await submitContact(data);
+      setDone(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setError(
+        `Something went wrong sending your message. Please try again, or email ${site.email}.`,
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (done) {
@@ -345,8 +361,8 @@ export function ContactForm() {
           </label>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Button type="submit" size="lg">
-              Send message
+            <Button type="submit" size="lg" disabled={submitting}>
+              {submitting ? "Sending..." : "Send message"}
             </Button>
             <p className="text-sm text-fg-muted">
               Or email{" "}
@@ -357,6 +373,11 @@ export function ContactForm() {
                 {site.email}
               </a>
             </p>
+            {error && (
+              <p className="basis-full text-sm text-red-600" role="alert">
+                {error}
+              </p>
+            )}
           </div>
         </form>
         </div>

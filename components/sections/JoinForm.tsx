@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { site } from "@/lib/content";
+import { submitMembership } from "@/lib/forms";
 
 /**
  * Membership form — replicated from the ASME Airtable intake form.
@@ -299,6 +300,8 @@ export function JoinForm() {
   const [contributions, setContributions] = useState<string[]>([]);
   const [otherContribution, setOtherContribution] = useState(false);
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   function toggleUse(value: string) {
     setUses((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
@@ -310,11 +313,28 @@ export function JoinForm() {
     );
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: POST to Airtable / backend. For now, confirm client-side.
-    setDone(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setError(null);
+    setSubmitting(true);
+    try {
+      const fd = new FormData(e.currentTarget);
+      const data: Record<string, unknown> = Object.fromEntries(fd.entries());
+      // Multi-select state is not in native form fields.
+      data.uses = uses;
+      data.contributions = contributions;
+      await submitMembership(data);
+      setDone(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setError(
+        "Something went wrong submitting the form. Please try again, or email us at " +
+          site.email +
+          ".",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (done) {
@@ -546,10 +566,15 @@ export function JoinForm() {
           </Step>
 
           <div>
-            <Button type="submit" size="lg">
-              Submit application
+            <Button type="submit" size="lg" disabled={submitting}>
+              {submitting ? "Submitting..." : "Submit application"}
               <ArrowRight className="h-4 w-4" />
             </Button>
+            {error && (
+              <p className="mt-4 text-sm text-red-600" role="alert">
+                {error}
+              </p>
+            )}
             <p className="mt-4 text-sm text-fg-subtle">
               Free to join. No clinical-society dues.
             </p>
