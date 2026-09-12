@@ -44,6 +44,10 @@ jobs:
         # /${{ github.event.repository.name }}.
         env:
           NEXT_PUBLIC_BASE_PATH: ""
+          # Google Analytics 4 measurement ID (G-XXXXXXXXXX). Set it once under
+          # repo Settings -> Secrets and variables -> Actions -> Variables as
+          # GA_MEASUREMENT_ID. Empty until then, so analytics stays off.
+          NEXT_PUBLIC_GA_ID: ${{ vars.GA_MEASUREMENT_ID }}
         run: npm run build
 
       - name: Stop Pages mangling the output
