@@ -11,7 +11,8 @@ import { getArticlesByCategory } from "@/lib/blog";
 import { announcementsByDate } from "@/lib/content";
 import { JoinCTA } from "@/components/sections/JoinCTA";
 import { VideoEmbed } from "@/components/ui/VideoEmbed";
-import { videos, webinars, site } from "@/lib/content";
+import { Webinars } from "@/components/sections/Webinars";
+import { videos, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -120,28 +121,7 @@ export default function ResourcesPage() {
               something more.
             </p>
           </Reveal>
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {webinars.map((w, i) => (
-              <Reveal key={w.title} delay={i * 0.05}>
-                <a
-                  href={w.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card card-hover group flex h-full flex-col p-7"
-                >
-                  <span className="text-xs font-medium uppercase tracking-[0.18em] text-fg-subtle">
-                    {w.date}
-                  </span>
-                  <h3 className="mt-3 font-display text-xl tracking-tight text-fg">{w.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted pretty">{w.blurb}</p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[rgb(var(--accent))]">
-                    Watch
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                </a>
-              </Reveal>
-            ))}
-          </div>
+          <Webinars />
         </Container>
       </section>
 

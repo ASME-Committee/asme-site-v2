@@ -435,7 +435,7 @@ export const articles: Article[] = [
       },
       {
         label: "MTPConnect, Australian medtech, biotech and pharmaceutical sector reporting",
-        url: "https://www.mtpconnect.org.au/Article?Action=View&Article_id=51",
+        url: "https://www.mtpconnect.org.au/reports",
       },
     ],
   },

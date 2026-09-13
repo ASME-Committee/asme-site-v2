@@ -918,7 +918,7 @@ export const partnerGroups: PartnerGroup[] = [
       { name: "Heart Foundation", logo: "/partners/heart-foundation.png", href: "https://www.heartfoundation.org.au" },
           { name: "ANDHealth", logo: "/partners/andhealth.png", href: "https://www.andhealth.com.au", logoClass: "max-h-[70px] max-w-[150px]" },
           { name: "Society of Physician Entrepreneurs", logo: "/partners/sope.png", href: "https://sopenet.org", logoClass: "max-h-[70px] max-w-[150px]" },
-          { name: "ARC Innovation, Sheba", logo: "/partners/arc.png", href: "https://arc.sheba.gov.il" },
+          { name: "ARC Innovation, Sheba", logo: "/partners/arc.png", href: "https://eng.sheba.co.il" },
           { name: "Doctorpreneurs", logo: "/partners/doctorpreneurs.png", href: "https://www.doctorpreneurs.com" },
           { name: "Auscelerate", logo: "/partners/auscelerate.png", href: "https://auscelerate.org" },
         ],
@@ -1357,30 +1357,41 @@ export const founderMessage = {
     "Innovation, entrepreneurship and enterprise have traditionally been viewed as something separate from being a clinician, rather than an extension of it.",
 } as const;
 
-/** Clinician+ webinar series. Recordings hosted off-site; `href` opens the
- *  recording (or the events page where no recording link exists yet). */
-export type Webinar = { title: string; date: string; blurb: string; href: string };
+/** Clinician+ webinar series.
+ *  `video` is a direct recording URL that plays inline in an embedded player
+ *  (Dropbox `raw=1` streams as video/mp4 with range support). `link` is a
+ *  fallback external destination (e.g. the events page) for a session whose
+ *  recording is not published yet. */
+export type Webinar = {
+  title: string;
+  date: string;
+  blurb: string;
+  video?: string;
+  link?: string;
+};
 export const webinars: Webinar[] = [
   {
     title: "Startup Storytelling",
     date: "30 March 2025",
     blurb:
       "Crafting the story that wins over investors, partners, and early users — how clinician founders frame the problem and the pitch.",
-    href: "https://www.dropbox.com/scl/fi/hgar92thb2xlq3udaxshu/Webinar-1.mp4?rlkey=v5ymyvc03y5otxd3fe5oush7t&st=k2yy7qfd&dl=0",
+    video:
+      "https://www.dropbox.com/scl/fi/hgar92thb2xlq3udaxshu/Webinar-1.mp4?rlkey=v5ymyvc03y5otxd3fe5oush7t&raw=1",
   },
   {
     title: "Monetising Your Innovation",
     date: "29 May 2025",
     blurb:
       "Turning a clinical idea into revenue — business models, pricing, and the paths to market open to clinician entrepreneurs.",
-    href: "https://www.asme.org.au/events",
+    link: "https://www.asme.org.au/events",
   },
   {
     title: "Clinician by day, startup by night",
     date: "23 September 2025",
     blurb:
       "Building a venture while still in practice — balancing clinical work with the demands of the founder journey.",
-    href: "https://www.dropbox.com/scl/fi/76nasvrn9p9r70u43amx1/webinar-3.mp4?rlkey=c4gist2dm6es7wxd6rd5q3yk3&st=runtmda9&dl=0",
+    video:
+      "https://www.dropbox.com/scl/fi/76nasvrn9p9r70u43amx1/webinar-3.mp4?rlkey=c4gist2dm6es7wxd6rd5q3yk3&raw=1",
   },
 ];
 
