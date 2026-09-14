@@ -42,7 +42,7 @@ jobs:
         # needs that prefix. Derived from the repo name rather than hardcoded,
         # so renaming or forking the repo cannot silently break every path.
         env:
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: ""
           # Google Analytics 4 measurement ID (G-XXXXXXXXXX). Set it once under
           # repo Settings -> Secrets and variables -> Actions -> Variables as
           # GA_MEASUREMENT_ID. Empty until then, so analytics stays off.
