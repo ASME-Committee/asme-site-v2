@@ -115,13 +115,12 @@ export const manifesto = {
 /**
  * The single documentary photograph on the home page, sitting directly under
  * the manifesto. The manifesto claims a room full of clinicians; this is the
- * room. The event and date are legible on the screens in the shot, so the
- * caption names them.
+ * room.
  */
 export const roomBand = {
-  src: "/photos/auscep-medtech-showcase.jpg",
-  alt: "A full room of clinicians seated at round tables at the AUSCEP Medtech Showcase, facing a speaker at a lectern between two large presentation screens.",
-  caption: "The AUSCEP Medtech Showcase, October 2025.",
+  src: "/photos/ip-workshop.jpg",
+  alt: "Clinicians and faculty seated around a large boardroom table with laptops during an intellectual property workshop, facing a presenter standing beside a screen reading IP 101+.",
+  caption: "An intellectual property workshop for clinician founders.",
 } as const;
 
 /**
