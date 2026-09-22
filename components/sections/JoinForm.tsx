@@ -10,9 +10,9 @@ import { site } from "@/lib/content";
 import { submitMembership } from "@/lib/forms";
 
 /**
- * Membership form — replicated from the ASME Airtable intake form.
- * Submission is not yet wired to a backend; onSubmit currently confirms
- * client-side. Wire `handleSubmit` to Airtable (or another store) later.
+ * Membership form — the fields ASME collects from new members.
+ * `handleSubmit` saves to Supabase via submitMembership (see lib/forms.ts);
+ * the CRM reads these rows from the `memberships` table.
  */
 
 type Field = {

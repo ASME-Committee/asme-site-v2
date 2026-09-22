@@ -16,10 +16,8 @@ export const site = {
   email: "info@asme.org.au",
   linkedin:
     "https://www.linkedin.com/company/australian-society-for-medical-entrepreneurship-innovation-asme/",
-  // Internal membership page (the on-site replica of the Airtable form).
+  // On-site membership form; submissions go to Supabase (see lib/forms.ts).
   joinPath: "/join",
-  // Original Airtable form — kept for wiring up form submission later.
-  joinUrl: "https://airtable.com/appJvGdxRMBwIzthp/shrH2JDdg2Lf9xOvr",
 } as const;
 
 export type NavItem = {
