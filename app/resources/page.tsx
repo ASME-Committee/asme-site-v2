@@ -115,8 +115,7 @@ export default function ResourcesPage() {
               Straight to <strong>your inbox.</strong>
             </h2>
             <p className="mt-4 text-base leading-relaxed text-fg-muted pretty">
-              Field notes, opportunities and founder stories. Coming soon, and sent to every ASME
-              member. Membership is free.
+              Coming October 2026. Sent to every ASME member.
             </p>
           </Reveal>
           <Reveal className="mt-8">
