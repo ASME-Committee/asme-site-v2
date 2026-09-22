@@ -14,7 +14,7 @@ import { programsList, site } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Programs",
   description:
-    "The Clinician+ Innovation Program, commencing November 2026 across three Melbourne Parkville precinct health services, and AUSCEP, our completed 12-month flagship that trained more than 150 clinicians.",
+    "The Clinician+ Innovation Program, commencing February 2027 across three Melbourne Parkville precinct health services, and AUSCEP, our completed 12-month flagship that trained more than 150 clinicians.",
 };
 
 export default function ProgramsPage() {

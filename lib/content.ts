@@ -159,9 +159,9 @@ export const sparc = {
   hook: "That idea you have been carrying between shifts deserves more than a conversation in the corridor.",
   description:
     "Clinician+ is a practical, clinician-focused program shaped by what works overseas, helping clinicians turn the problems they see every day into solutions.",
-  status: "Commencing November 2026",
+  status: "Commencing February 2027",
   foundationPartners:
-    "Launching November 2026 across 3 Parkville health services.",
+    "Launching February 2027 across 3 Parkville health services.",
   details: [
     {
       title: "Flexible 3 to 6 months",
@@ -258,7 +258,7 @@ export const announcements: Announcement[] = [
     kind: "Program",
     title: "Clinician+ launches across three Parkville health services",
     blurb:
-      "ASME will deliver the Clinician+ Innovation Program with Royal Melbourne Hospital, St Vincent's Hospital and Peter MacCallum Cancer Centre, targeted to start in November 2026. More information to come.",
+      "ASME will deliver the Clinician+ Innovation Program with Royal Melbourne Hospital, St Vincent's Hospital and Peter MacCallum Cancer Centre, targeted to start in February 2027. More information to come.",
     href: "/programs#sparc",
     // The programme's own mark rather than a photograph. A stock hospital shot
     // beside a headline naming three real health services implies one of them,
@@ -392,7 +392,7 @@ export const onNow = {
    *  what most people arriving from the doors will want first. */
   sparc: {
     title: "Clinician+ Innovation Program",
-    meta: "Melbourne · commencing November 2026",
+    meta: "Melbourne · commencing February 2027",
     body: "Launching in the Parkville precinct with Peter MacCallum Cancer Centre, St Vincent's Hospital and Royal Melbourne Hospital. Three to six months, six to eight workshops, built to fit around clinical commitments.",
     href: "/programs#sparc",
   },
@@ -1196,7 +1196,7 @@ export const advocacyPillars: AdvocacyPillar[] = [
     // Deliberately not "entrepreneurship": the hospital ask is that clinicians
     // are backed to fix what they encounter, not that they start companies.
     body: "We encourage hospitals to back their clinicians to turn the problems they see every day into solutions. That happens through the Clinician+ Innovation Program and driving a new culture of innovation.",
-    proof: "Commencing November 2026 across Melbourne's Parkville precinct with Peter MacCallum Cancer Centre, St Vincent's Hospital and Royal Melbourne Hospital.",
+    proof: "Commencing February 2027 across Melbourne's Parkville precinct with Peter MacCallum Cancer Centre, St Vincent's Hospital and Royal Melbourne Hospital.",
     proofHref: "/programs#sparc",
   },
   {
