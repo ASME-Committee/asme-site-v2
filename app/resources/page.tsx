@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { ArrowUpRight, ArrowRight, Mail } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/sections/PageHeader";
+import { StoriesComingSoon } from "@/components/sections/StoriesComingSoon";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { Insights } from "@/components/sections/Insights";
 import { formatDate } from "@/lib/date";
-import { getArticlesByCategory } from "@/lib/blog";
 import { announcementsByDate } from "@/lib/content";
 import { JoinCTA } from "@/components/sections/JoinCTA";
 import { VideoEmbed } from "@/components/ui/VideoEmbed";
@@ -22,7 +22,6 @@ export const metadata: Metadata = {
 
 export default function ResourcesPage() {
   const featured = videos[0];
-  const stories = getArticlesByCategory("Interview");
 
   return (
     <PageShell>
@@ -76,35 +75,16 @@ export default function ResourcesPage() {
             </Reveal>
           )}
 
-          {stories.length > 0 ? (
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
-              {stories.map((a, i) => (
-                <Reveal key={a.slug} delay={i * 0.05}>
-                  <Link
-                    href={`/resources/articles/${a.slug}`}
-                    className="card card-hover group flex h-full flex-col p-7"
-                  >
-                    <StoryBy
-                      kind={a.category}
-                      name={a.innovator?.name}
-                      role={a.innovator?.role}
-                      date={a.date}
-                    />
-                    <h3 className="mt-3 font-display text-xl tracking-tight text-fg">{a.title}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted pretty">
-                      {a.dek}
-                    </p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[rgb(var(--accent))]">
-                      Read the story
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </span>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-12 text-sm text-fg-muted">The first stories are on their way.</p>
-          )}
+          {/* The interview grid stood here with a single card in it. The new
+              series replaces it: one card is not a grid, and a teaser for what
+              is coming says more than one entry pretending to be a collection.
+
+              The one interview that was in it, inside-series-b-clinician-founder,
+              is deliberately left unlinked rather than moved into Articles,
+              which filters interviews out. Its URL still resolves. Restore the
+              grid here once there are several published interviews. */}
+          <StoriesComingSoon />
+
         </Container>
       </section>
 

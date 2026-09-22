@@ -124,6 +124,24 @@ export const roomBand = {
 } as const;
 
 /**
+ * The teaser above the Innovator stories grid, for the video interview series
+ * that is filmed but not yet published.
+ *
+ * The placeholder cards carry no photograph. A CSS blur is not a redaction:
+ * the original file still ships to the browser and can be read straight out of
+ * the network tab, so a blurred headshot would leak the very thing it teases.
+ * These are drawn shapes instead, and the pill names the field rather than the
+ * person, which is the part a reader can actually be curious about before
+ * anyone has agreed to be named.
+ */
+export const storiesComingSoon = {
+  title: "New interview series.",
+  titleAccent: "Coming soon.",
+  body: "Founder and innovator stories from inside Australian healthcare.",
+  cards: ["Medtech", "Digital health", "Diagnostics"],
+} as const;
+
+/**
  * Official vision and purpose statements, provided by ASME.
  */
 export const visionPurpose = {
