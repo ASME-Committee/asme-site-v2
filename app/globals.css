@@ -381,3 +381,30 @@
     animation: none !important;
   }
 }
+
+/* The announcement the news bar linked to. A green wash (fill, never text, per
+   --give's rule) held long enough to be seen, then faded, so the reader knows
+   which of the list was meant. The shadow carries the wash past the row's own
+   edges without shifting the layout. */
+.news-item:target > a {
+  border-radius: 12px;
+  animation: news-target 5s ease-out forwards;
+}
+@keyframes news-target {
+  0%,
+  50% {
+    background-color: rgb(var(--give) / 0.35);
+    box-shadow: 0 0 0 12px rgb(var(--give) / 0.35);
+  }
+  100% {
+    background-color: rgb(var(--give) / 0);
+    box-shadow: 0 0 0 12px rgb(var(--give) / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .news-item:target > a {
+    animation: none;
+    background-color: rgb(var(--give) / 0.35);
+    box-shadow: 0 0 0 12px rgb(var(--give) / 0.35);
+  }
+}

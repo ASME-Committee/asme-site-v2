@@ -8,7 +8,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { Insights } from "@/components/sections/Insights";
 import { formatDate } from "@/lib/date";
-import { announcementsByDate } from "@/lib/content";
+import { announcementAnchor, announcementsByDate } from "@/lib/content";
 import { JoinCTA } from "@/components/sections/JoinCTA";
 import { VideoEmbed } from "@/components/ui/VideoEmbed";
 import { Webinars } from "@/components/sections/Webinars";
@@ -139,12 +139,14 @@ export default function ResourcesPage() {
         exclude="Interview"
       />
 
-      {/* News & Updates: the announcements archive. Short, dated items that link
-          to the page where each fact permanently lives. */}
+      {/* Announcements: the whole list, newest first, and the only place on the
+          site it is shown in full (the home page no longer carries a block).
+          Short, dated items that link to the page where each fact permanently
+          lives. */}
       <section id="news">
         <Container>
           <Reveal className="max-w-2xl">
-            <p className="eyebrow">News & updates</p>
+            <p className="eyebrow">Announcements</p>
             <h2 className="h-display mt-5 text-3xl md:text-[2.75rem]">
               What is <strong>new at ASME.</strong>
             </h2>
@@ -153,7 +155,8 @@ export default function ResourcesPage() {
           <ul className="mt-12 divide-y divide-border border-y border-border">
             {announcementsByDate.map((a, i) => (
               <Reveal key={a.title} delay={i * 0.04}>
-                <li>
+                {/* The id is what the news bar links to. */}
+                <li id={announcementAnchor(a)} className="news-item">
                   <Link
                     href={a.href}
                     className="group flex flex-col gap-3 py-6 transition-colors sm:flex-row sm:items-baseline sm:gap-8"
