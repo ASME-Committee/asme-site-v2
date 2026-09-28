@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -23,6 +23,13 @@ import { announcementsByDate } from "@/lib/content";
  * The cost is that the bar cannot be in the first paint: it mounts, then
  * appears. That is a small shift at the top of the page, and the alternative is
  * reserving space for a bar that usually should not be there at all.
+ *
+ * It stays pinned while the reader scrolls, and the nav pins directly under
+ * it. The two cannot share one sticky wrapper (the bar lives in the root
+ * layout, the nav inside each page), so the bar publishes its height as
+ * --banner-h and the nav uses that as its own top offset. When the bar is
+ * dismissed, hidden as stale, or absent, the variable goes back to 0 and the
+ * nav returns to the top edge.
  */
 
 /** Days an announcement stays on the bar. After this it hides itself, so a
@@ -40,6 +47,7 @@ export function AnnouncementBanner() {
   const id = latest ? `${latest.date}:${latest.href}` : "";
 
   const [show, setShow] = useState(false);
+  const barRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!latest) return;
@@ -58,12 +66,40 @@ export function AnnouncementBanner() {
     setShow(true);
   }, [latest, id]);
 
+  // Keep --banner-h equal to the bar's real height. It is measured rather than
+  // hard-coded because it changes: one line on a laptop, and a long headline
+  // or a larger text setting can make it taller.
+  useEffect(() => {
+    const root = document.documentElement;
+    const el = barRef.current;
+    if (!show || !el) {
+      root.style.setProperty("--banner-h", "0px");
+      return;
+    }
+    const set = () => root.style.setProperty("--banner-h", `${el.offsetHeight}px`);
+    set();
+    // Arriving from an email at /programs#sparc, the browser jumps to the
+    // section before this bar exists, then the bar appears on top of the
+    // section's heading. Jump again now the bar's height is known.
+    if (window.location.hash) {
+      const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      target?.scrollIntoView({ block: "start" });
+    }
+    const ro = new ResizeObserver(set);
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      root.style.setProperty("--banner-h", "0px");
+    };
+  }, [show]);
+
   if (!latest || !show) return null;
 
   return (
     <aside
+      ref={barRef}
       aria-label="Latest ASME news"
-      className="bg-[rgb(var(--give))] text-[rgb(var(--ink))]"
+      className="sticky top-0 z-[60] bg-[rgb(var(--give))] text-[rgb(var(--ink))]"
     >
       <Container className="flex min-h-11 items-center gap-x-3 gap-y-1 py-2 text-sm">
         <span className="hidden shrink-0 rounded bg-[rgb(var(--ink))] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white sm:inline-block">

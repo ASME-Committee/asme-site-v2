@@ -70,6 +70,19 @@
     --panel-radius: 1.75rem;
   }
 
+  /* Jumps to a section (#sparc, #racma-mou) stop below whatever is pinned to
+     the top: the nav (h-20, md:h-24) plus the news bar when it is showing,
+     plus a little air. Without this the heading of the section a link was
+     aimed at lands underneath them. */
+  html {
+    scroll-padding-top: calc(var(--banner-h, 0px) + 5rem + 1rem);
+  }
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: calc(var(--banner-h, 0px) + 6rem + 1rem);
+    }
+  }
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

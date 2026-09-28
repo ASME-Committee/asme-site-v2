@@ -53,6 +53,16 @@ export default function HomePage() {
       <main>
         <Container className="panel-stack py-4 md:py-6">
           <Hero />
+          {/* News directly under the hero. It sat sixth, four screens down on a
+              laptop and five on a phone, behind five sections written for people
+              who have not joined. Members come back for what is new, and the
+              hero already carries the pitch and the join button, so a visitor
+              meeting ASME for the first time loses nothing: recent news is the
+              evidence the society is moving. panel-lg, white, so it separates
+              from the blue hero above and the tinted panels further down. */}
+          <div className="panel panel-lg">
+            <Announcements />
+          </div>
           <div className="panel panel-lg">
             <Manifesto />
           </div>
@@ -62,14 +72,6 @@ export default function HomePage() {
           <RoomBand />
           <div className="panel">
             <WhatWeDo />
-          </div>
-          {/* Announcements first: what has happened is the evidence the society
-              is moving, and it carries a photograph. On now follows with what a
-              reader can still turn up to. panel-lg, not a tint: TrackRecord
-              below is tinted, and two tinted panels in a row lose the boundary
-              between them. */}
-          <div className="panel panel-lg">
-            <Announcements />
           </div>
           <div className="panel">
             <OnNow />
