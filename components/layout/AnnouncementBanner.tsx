@@ -1,17 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { announcementsByDate } from "@/lib/content";
+import { asset } from "@/lib/asset";
+import { announcementAnchor, announcementsByDate } from "@/lib/content";
 
 /**
  * The news bar above the nav: the newest announcement, or nothing.
  *
- * It reads announcementsByDate[0], the same list behind the home page band and
- * the /resources#news archive, so posting a news item is the only thing needed
+ * It reads announcementsByDate[0], the same list behind the Announcements
+ * section at /resources#news, so posting a news item is the only thing needed
  * to change it. There is no second copy to keep in step.
+ *
+ * It links to that item's own entry in the Announcements list, not straight to
+ * the story: the reader lands on the item, highlighted, among the rest of the
+ * news, and the entry links on to the full story.
  *
  * Why this is a client component rather than server-rendered: the site is a
  * static export, so anything decided on the server is decided at build time.
@@ -106,15 +110,21 @@ export function AnnouncementBanner() {
           New
         </span>
 
-        <Link
-          href={latest.href}
+        {/* A plain link, not next/link, on purpose. next/link changes page
+            with pushState, and the browser does not update :target for that,
+            so the entry's highlight never showed. A real navigation lets the
+            browser jump to the entry and mark it, including when the reader is
+            already on /resources. asset() adds the base path next/link would
+            have added; the trailing slash matches trailingSlash: true. */}
+        <a
+          href={`${asset("/resources/")}#${announcementAnchor(latest)}`}
           className="group flex min-w-0 flex-1 items-center gap-x-3 max-sm:items-stretch"
         >
           <span className="min-w-0 truncate font-medium">{latest.title}</span>
           <span className="hidden shrink-0 whitespace-nowrap underline underline-offset-2 opacity-80 transition-opacity group-hover:opacity-100 sm:inline">
             Read more <span aria-hidden="true">&rarr;</span>
           </span>
-        </Link>
+        </a>
 
         <button
           type="button"

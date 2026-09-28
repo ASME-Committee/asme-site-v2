@@ -248,9 +248,10 @@ export type Announcement = {
   title: string;
   blurb: string;
   href: string;
-  /** Optional. The lead announcement on the home page runs it alongside the
-   *  headline; the compact rows below ignore it. An announcement without one
-   *  still leads, it just does it on type alone. */
+  /** Optional, and not shown anywhere at present. The home page block that ran
+   *  it beside the lead headline has been removed; the Announcements list on
+   *  /resources and the news bar are text only. Kept so the images already
+   *  chosen are not lost if a visual treatment comes back. */
   image?: { src: string; alt: string };
 };
 
@@ -289,10 +290,25 @@ export const announcements: Announcement[] = [
   },
 ];
 
-/** Newest first. Used by both the home band and the Insights feed. */
+/** Newest first. Used by the Announcements section on /resources and the news
+ *  bar across the top of every page. */
 export const announcementsByDate = [...announcements].sort((a, b) =>
   b.date.localeCompare(a.date),
 );
+
+/** Where one announcement sits in the Announcements list on /resources, as an
+ *  anchor id: "news-" plus the headline in lower case with hyphens, so
+ *  "Clinician+ launches across three Parkville health services" becomes
+ *  news-clinician-launches-across-three-parkville-health-services. The news bar
+ *  links to it. Made from the title so posting news needs no extra field; the
+ *  cost is that editing a headline changes its link. */
+export function announcementAnchor(a: Announcement): string {
+  const slug = a.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `news-${slug}`;
+}
 
 /** The routing block on the home page: four things ASME does, each linking to
  *  the page that covers it. Mirrors the nav rather than inventing categories,

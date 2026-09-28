@@ -8,7 +8,6 @@ import { RoomBand } from "@/components/sections/RoomBand";
 import { WhatWeDo } from "@/components/sections/WhatWeDo";
 import { ThreeDoors } from "@/components/sections/ThreeDoors";
 import { OnNow } from "@/components/sections/OnNow";
-import { Announcements } from "@/components/sections/Announcements";
 import { TrackRecord } from "@/components/sections/TrackRecord";
 import { MemberSpotlights } from "@/components/sections/MemberSpotlights";
 import { SystemsChange } from "@/components/sections/SystemsChange";
@@ -53,16 +52,6 @@ export default function HomePage() {
       <main>
         <Container className="panel-stack py-4 md:py-6">
           <Hero />
-          {/* News directly under the hero. It sat sixth, four screens down on a
-              laptop and five on a phone, behind five sections written for people
-              who have not joined. Members come back for what is new, and the
-              hero already carries the pitch and the join button, so a visitor
-              meeting ASME for the first time loses nothing: recent news is the
-              evidence the society is moving. panel-lg, white, so it separates
-              from the blue hero above and the tinted panels further down. */}
-          <div className="panel panel-lg">
-            <Announcements />
-          </div>
           <div className="panel panel-lg">
             <Manifesto />
           </div>
