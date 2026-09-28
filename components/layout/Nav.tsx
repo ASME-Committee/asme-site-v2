@@ -25,7 +25,9 @@ export function Nav() {
       className={cn(
         // Always opaque. It used to be transparent until scrolled, which let
         // page content run underneath the logo and the links.
-        "sticky top-0 z-50 bg-[rgb(var(--ground))]",
+        // Pinned under the news bar when there is one: --banner-h is the bar's
+        // measured height, set by AnnouncementBanner, and 0 when it is not shown.
+        "sticky top-[var(--banner-h,0px)] z-50 bg-[rgb(var(--ground))]",
         scrolled ? "border-b border-border" : "border-b border-transparent",
       )}
     >
