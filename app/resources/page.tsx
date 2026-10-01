@@ -8,7 +8,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { Insights } from "@/components/sections/Insights";
 import { formatDate } from "@/lib/date";
-import { announcementAnchor, announcementsByDate } from "@/lib/content";
+import { announcementAnchor, announcementLink, announcementsByDate } from "@/lib/content";
 import { JoinCTA } from "@/components/sections/JoinCTA";
 import { VideoEmbed } from "@/components/ui/VideoEmbed";
 import { Webinars } from "@/components/sections/Webinars";
@@ -158,7 +158,7 @@ export default function ResourcesPage() {
                 {/* The id is what the news bar links to. */}
                 <li id={announcementAnchor(a)} className="news-item">
                   <Link
-                    href={a.href}
+                    href={announcementLink(a)}
                     className="group flex flex-col gap-3 py-6 transition-colors sm:flex-row sm:items-baseline sm:gap-8"
                   >
                     <div className="flex shrink-0 items-center gap-3 sm:w-56">

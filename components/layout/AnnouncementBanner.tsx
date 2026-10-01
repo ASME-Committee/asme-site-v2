@@ -48,7 +48,7 @@ export function AnnouncementBanner() {
   // Identity, not a boolean: dismissing this item must not silence the next
   // one. When a newer announcement lands the id changes and the bar returns,
   // including for readers who closed the last one.
-  const id = latest ? `${latest.date}:${latest.href}` : "";
+  const id = latest ? `${latest.date}:${announcementAnchor(latest)}` : "";
 
   const [show, setShow] = useState(false);
   const barRef = useRef<HTMLElement>(null);

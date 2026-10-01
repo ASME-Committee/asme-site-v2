@@ -247,15 +247,42 @@ export type Announcement = {
   kind: "Event" | "Program" | "Partnership" | "Update";
   title: string;
   blurb: string;
-  href: string;
-  /** Optional, and not shown anywhere at present. The home page block that ran
-   *  it beside the lead headline has been removed; the Announcements list on
-   *  /resources and the news bar are text only. Kept so the images already
-   *  chosen are not lost if a visual treatment comes back. */
-  image?: { src: string; alt: string };
+  /** Where the entry links: the page where the fact permanently lives. Leave it
+   *  out when the item has its own `article`, which then becomes the link. */
+  href?: string;
+  /** Optional photo. Shown at the top of the item's article page when it has
+   *  one; the Announcements list and the news bar are text only. `alt` says
+   *  what is in the frame, `caption` says who and what for a sighted reader. */
+  image?: { src: string; alt: string; caption?: string };
+  /** Optional short article, one string per paragraph. The item then gets its
+   *  own page at /resources/announcements/<slug>, made from the title. That
+   *  page is reached only from the Announcements list and the news bar: the
+   *  Articles lists read lib/blog.ts and never see it. */
+  article?: { body: string[] };
 };
 
 export const announcements: Announcement[] = [
+  {
+    date: "2026-09-30",
+    kind: "Partnership",
+    title: "Bionics Institute joins ASME as an institutional partner",
+    blurb:
+      "Founded by the surgeon who led Australia's cochlear implant team, the Bionics Institute joins ASME, putting four decades of device research alongside clinicians who know which problems matter.",
+    image: {
+      src: "/photos/bionics-institute-partnership.jpg",
+      alt: "Matt Hallam and Robert Klupacs shaking hands in front of a Bionics Institute sign, beneath a timeline of the Institute's history.",
+      caption: "Matt Hallam (left), CEO of ASME, and Robert Klupacs, CEO of the Bionics Institute.",
+    },
+    article: {
+      body: [
+        "ASME is proud to welcome the Bionics Institute as an institutional partner.",
+        "The Institute was founded by an ear surgeon. Professor Graeme Clark grew up watching his father struggle with deafness, then led the team behind Australia's cochlear implant.",
+        "Its mission today is to research and develop devices that solve medical challenges and transform lives. That work happens at St Vincent's Hospital Melbourne, close to its clinical collaborators.",
+        "ASME starts from the same place: the people closest to patients are often best placed to solve healthcare's problems. We connect clinicians with the networks and pathways to turn those problems into ventures.",
+        "Both organisations know an idea only changes outcomes once it reaches patients. Put four decades of device research alongside clinicians who know which problems matter, and more ideas get there.",
+      ],
+    },
+  },
   {
     date: "2026-07-27",
     kind: "Partnership",
@@ -303,12 +330,27 @@ export const announcementsByDate = [...announcements].sort((a, b) =>
  *  links to it. Made from the title so posting news needs no extra field; the
  *  cost is that editing a headline changes its link. */
 export function announcementAnchor(a: Announcement): string {
-  const slug = a.title
+  return `news-${announcementSlug(a)}`;
+}
+
+/** The headline in lower case with hyphens. Used for both the list anchor and
+ *  the article page's address. */
+export function announcementSlug(a: Announcement): string {
+  return a.title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
-  return `news-${slug}`;
 }
+
+/** Where an announcement's entry links: its own article page when it has one,
+ *  otherwise its href. */
+export function announcementLink(a: Announcement): string {
+  if (a.article) return `/resources/announcements/${announcementSlug(a)}`;
+  return a.href ?? "/resources#news";
+}
+
+/** The announcements that have their own article page, newest first. */
+export const announcementArticles = announcementsByDate.filter((a) => a.article);
 
 /** The routing block on the home page: four things ASME does, each linking to
  *  the page that covers it. Mirrors the nav rather than inventing categories,
