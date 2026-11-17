@@ -960,6 +960,7 @@ export const partnerGroups: PartnerGroup[] = [
           { name: "Tricorian Life", logo: "/partners/tricorian-life.svg", href: "https://www.tricorian.com" },
           { name: "Prac3 Group", logo: "/partners/prac3-group.webp", href: "https://prac3.com.au" },
           { name: "Loop Marketing", logo: "/partners/loop-marketing.png", href: "https://loopmarketing.com.au" },
+          { name: "CSL", logo: "/partners/csl.png", href: "https://www.csl.com" },
         ],
       },
     ],
