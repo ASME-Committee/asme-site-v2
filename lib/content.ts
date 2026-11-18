@@ -11,7 +11,7 @@ export const site = {
   fullName: "Australian Society for Medical Entrepreneurship & Innovation",
   tagline: "A home for clinician innovators.",
   description:
-    "Build, invest, and shape the future of healthcare. Without leaving clinical practice behind.",
+    "A not-for-profit home for Australian clinicians turning frontline problems into healthcare innovation. Free to join, open to every clinical discipline.",
   url: "https://asme.org.au",
   email: "info@asme.org.au",
   linkedin:
