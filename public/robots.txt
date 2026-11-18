@@ -1,9 +1,14 @@
-# This is a draft of the ASME site, shared for review only.
+# asme.org.au is the live site: search engines may read all of it.
 #
-# It must not be indexed: a public preview URL carrying the real ASME copy
-# would compete with asme.org.au in search results and could be found by
-# people looking for the society itself.
+# This file used to block every crawler, from when the site was a draft at a
+# preview address. It was meant to be deleted at launch and was not, which is
+# why Google listed asme.org.au with no description and no icon.
 #
-# DELETE THIS FILE before the site goes live at its real address.
+# Pages that should stay out of search results are marked individually with
+# robots: { index: false } in their own metadata, not blocked here: a page
+# blocked here cannot be read, so Google never sees that it is meant to be
+# left out.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://asme.org.au/sitemap.xml
