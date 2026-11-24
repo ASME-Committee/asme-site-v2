@@ -134,12 +134,50 @@ export const roomBand = {
  * person, which is the part a reader can actually be curious about before
  * anyone has agreed to be named.
  */
-export const storiesComingSoon = {
-  title: "New interview series.",
-  titleAccent: "Coming soon.",
+/**
+ * Innovator Interviews: ASME's video interview series, shown on /resources and
+ * each given its own page at /resources/interviews/<slug>/.
+ *
+ * The videos live on ASME's YouTube channel (@ASMEAustralia), not in this repo:
+ * the files are hundreds of megabytes, and GitHub refuses anything over 100 MB.
+ * To add an interview, upload it to YouTube (Unlisted is fine, but leave
+ * "Allow embedding" ticked), then add an entry below. `youtubeId` is the part
+ * of the link after youtu.be/. Newest first.
+ *
+ * Only publish an interview once the person has agreed to it.
+ */
+export const interviewFields = ["Medtech", "Digital health", "Diagnostics"] as const;
+
+export type Interview = {
+  /** The page address: /resources/interviews/<slug>/. Changing it breaks old links. */
+  slug: string;
+  name: string;
+  role: string;
+  field: (typeof interviewFields)[number];
+  /** Short headline for the card and the page. */
+  title: string;
+  /** One or two sentences: the card text and the page's search description. */
+  summary: string;
+  youtubeId: string;
+};
+
+export const innovatorInterviews = {
+  title: "Innovator",
+  titleAccent: "Interviews.",
   body: "Founder and innovator stories from inside Australian healthcare.",
-  cards: ["Medtech", "Digital health", "Diagnostics"],
-} as const;
+  items: [
+    {
+      slug: "ben-condon",
+      name: "Dr Ben Condon",
+      role: "Clinical Director, Australia and New Zealand, Heidi Health",
+      field: "Medtech",
+      title: "Leaving the ED for Heidi Health",
+      summary:
+        "Dr Ben Condon, clinical director for Australia and New Zealand at Heidi Health, talks about leaving emergency medicine for health tech, why he joined a fast-growing startup instead of founding his own, and what Heidi's rollout across New Zealand emergency departments taught him about how health systems change.",
+      youtubeId: "iOlGtPqL2Us",
+    },
+  ] satisfies Interview[] as Interview[],
+};
 
 /**
  * Official vision and purpose statements, provided by ASME.
@@ -244,7 +282,7 @@ export const sparc = {
 export type Announcement = {
   /** ISO date, e.g. "2026-08-12". Sorted on, and displayed. */
   date: string;
-  kind: "Event" | "Program" | "Partnership" | "Update";
+  kind: "Event" | "Program" | "Partnership" | "Interview" | "Update";
   title: string;
   blurb: string;
   /** Where the entry links: the page where the fact permanently lives. Leave it
@@ -262,6 +300,14 @@ export type Announcement = {
 };
 
 export const announcements: Announcement[] = [
+  {
+    // Dated the day it goes live: the news bar shows it for 14 days from here.
+    date: "2026-11-24",
+    kind: "Interview",
+    title: "Innovator Interview: Dr Ben Condon on leaving the ED for Heidi Health",
+    blurb: "The first episode of ASME's new interview series is out now.",
+    href: "/resources/interviews/ben-condon/",
+  },
   {
     date: "2026-09-30",
     kind: "Partnership",
