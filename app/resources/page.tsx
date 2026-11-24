@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ArrowUpRight, ArrowRight, Mail } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/sections/PageHeader";
-import { StoriesComingSoon } from "@/components/sections/StoriesComingSoon";
+import { InnovatorInterviews } from "@/components/sections/InnovatorInterviews";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
@@ -75,15 +75,10 @@ export default function ResourcesPage() {
             </Reveal>
           )}
 
-          {/* The interview grid stood here with a single card in it. The new
-              series replaces it: one card is not a grid, and a teaser for what
-              is coming says more than one entry pretending to be a collection.
-
-              The one interview that was in it, inside-series-b-clinician-founder,
-              is deliberately left unlinked rather than moved into Articles,
-              which filters interviews out. Its URL still resolves. Restore the
-              grid here once there are several published interviews. */}
-          <StoriesComingSoon />
+          {/* The video interview series. Each card opens the interview's own
+              page. The older written interview, inside-series-b-clinician-founder,
+              stays unlinked on purpose; its URL still resolves. */}
+          <InnovatorInterviews />
 
         </Container>
       </section>
